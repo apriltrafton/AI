@@ -4,88 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>April Trafton | Director of Learning Support</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --primary-blue: #004a99;
-            --text-gray: #333;
-            --bg-light: #f4f7f6;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-light);
-            color: var(--text-gray);
-        }
-
-        header {
-            background-color: var(--primary-blue);
-            color: white;
-            padding: 3rem 1rem;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 { margin: 0; font-size: 2.5rem; }
-        .position { font-size: 1.25rem; opacity: 0.9; margin-top: 0.5rem; }
-        .institution { font-weight: 600; color: var(--primary-blue); }
-
-        .btn {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 12px 24px;
-            background-color: var(--primary-blue);
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .btn:hover { 
-            background-color: #003366; 
-            transform: translateY(-2px);
-        }
-
-        footer { text-align: center; margin-top: 3rem; color: #666; font-size: 0.9rem; }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap');
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans">
 
-    <header>
-        <h1>April Trafton</h1>
-        <p class="position">Director of Learning Support</p>
-        <p class="institution">Tarrant County College</p>
+    <header class="relative bg-slate-900 text-white py-32 px-6 overflow-hidden">
+        <div class="absolute inset-0 opacity-15 pointer-events-none">
+            <svg viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" class="w-full h-full">
+                <!-- Abstract "Book-Leaf" Pattern -->
+                <g fill="none" stroke="#fbbf24" stroke-width="2">
+                    <path d="M100 400 C 200 200, 300 100, 500 100" />
+                    <path d="M150 400 C 250 200, 350 100, 550 100" />
+                    <path d="M700 400 C 800 200, 900 100, 1100 100" />
+                    <circle cx="500" cy="100" r="80" stroke-opacity="0.5" />
+                    <circle cx="500" cy="100" r="120" stroke-opacity="0.3" />
+                </g>
+            </svg>
+        </div>
+
+        <div class="relative max-w-2xl mx-auto text-center">
+            <h1 class="text-6xl font-serif font-bold mb-4 tracking-tight">April Trafton</h1>
+            <p class="text-xl font-medium text-amber-500 uppercase tracking-widest">Director of Learning Support</p>
+            <div class="w-16 h-1 bg-amber-500 mx-auto mt-6 rounded-full"></div>
+            <p class="mt-4 text-slate-400">Tarrant County College</p>
+        </div>
     </header>
 
-    <main class="container">
-        <h2>Welcome</h2>
-        <p id="bio">As the Director of Learning Support at Tarrant County College, I am committed to academic excellence and supporting student success through innovative pedagogy and resources.</p>
-        
-        <a href="tutoringbasics.html" class="btn">View Tutoring Basics</a>
+    <main class="max-w-3xl mx-auto px-6 -mt-16 relative z-10">
+        <div class="bg-white rounded-2xl shadow-2xl p-10 md:p-12 border border-slate-100">
+            <h2 class="text-3xl font-serif font-bold mb-6 text-slate-900">Professional Mission</h2>
+            <p id="bio" class="text-lg text-slate-600 leading-relaxed mb-10">
+                Driven by the belief that every student possesses the potential for greatness, I lead the Learning Support services at Tarrant County College with a focus on empathy, clarity, and rigorous academic standards.
+            </p>
+            
+            <div class="flex">
+                <a href="tutoringbasics.html" class="group relative inline-flex items-center text-lg font-semibold text-amber-700 hover:text-amber-800 transition-all">
+                    <span>Explore Tutoring Basics</span>
+                    <span class="ml-2 transition-transform group-hover:translate-x-2">⟶</span>
+                    <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-amber-500 transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                </a>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        &copy; 2026 Tarrant County College | All Rights Reserved
+    <footer class="text-center py-12 text-slate-400 text-sm">
+        &copy; 2026 Tarrant County College
     </footer>
 
     <script>
-        // Simple interaction to highlight the bio on load
         window.addEventListener('DOMContentLoaded', () => {
-            const bio = document.getElementById('bio');
-            bio.style.borderLeft = "5px solid #004a99";
-            bio.style.paddingLeft = "20px";
-            console.log("Website initialized for April Trafton.");
+            const container = document.querySelector('main > div');
+            container.style.opacity = '0';
+            container.style.transition = 'opacity 1s ease-out';
+            setTimeout(() => {
+                container.style.opacity = '1';
+            }, 300);
         });
     </script>
 </body>
