@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>April Trafton | Director of Learning Support</title>
+    <style>
+        :root {
+            --primary-blue: #004a99;
+            --text-gray: #333;
+            --bg-light: #f4f7f6;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-gray);
+        }
+
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 { margin: 0; font-size: 2.5rem; }
+        .position { font-size: 1.25rem; opacity: 0.9; margin-top: 0.5rem; }
+        .institution { font-weight: 600; color: var(--primary-blue); }
+
+        .btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 12px 24px;
+            background-color: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .btn:hover { 
+            background-color: #003366; 
+            transform: translateY(-2px);
+        }
+
+        footer { text-align: center; margin-top: 3rem; color: #666; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>April Trafton</h1>
+        <p class="position">Director of Learning Support</p>
+        <p class="institution">Tarrant County College</p>
+    </header>
+
+    <main class="container">
+        <h2>Welcome</h2>
+        <p id="bio">As the Director of Learning Support at Tarrant County College, I am committed to academic excellence and supporting student success through innovative pedagogy and resources.</p>
+        
+        <a href="tutoringbasics.html" class="btn">View Tutoring Basics</a>
+    </main>
+
+    <footer>
+        &copy; 2026 Tarrant County College | All Rights Reserved
+    </footer>
+
+    <script>
+        // Simple interaction to highlight the bio on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const bio = document.getElementById('bio');
+            bio.style.borderLeft = "5px solid #004a99";
+            bio.style.paddingLeft = "20px";
+            console.log("Website initialized for April Trafton.");
+        });
+    </script>
+</body>
+</html>
