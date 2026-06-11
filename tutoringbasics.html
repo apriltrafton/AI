@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCCD Learning Commons | CRLA Tutor Training Academy</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tccd: {
+                            navy: '#0A2540',
+                            teal: '#007C89',
+                            cyan: '#00B4D8',
+                            slate: '#1E293B',
+                            emerald: '#059669',
+                            rose: '#E11D48',
+                            gold: '#D97706'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for beautiful, clean academic and game icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar styling for a premium look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-full flex flex-col font-sans">
+
+    <!-- MAIN NAVIGATION & HEADER BRANDING -->
+    <header class="bg-[#0A2540] text-white border-b-4 border-[#007C89] shadow-md shrink-0">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <!-- TCCD Learning Commons Signature Block -->
+            <div class="flex items-center space-x-4">
+                <div class="bg-white p-2 rounded-lg shadow-inner flex flex-col items-center justify-center leading-none tracking-tighter w-24 h-14">
+                    <span class="text-[#0A2540] font-black text-xs">TCCD</span>
+                    <span class="text-[#007C89] font-bold text-[10px] uppercase">Learning</span>
+                    <span class="text-[#007C89] font-bold text-[10px] uppercase">Commons</span>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-black tracking-tight flex items-center gap-2">
+                        <i class="fa-solid fa-graduation-cap text-[#00B4D8]"></i>
+                        CRLA Tutor Academy
+                    </h1>
+                    <p class="text-xs text-[#00B4D8] font-medium uppercase tracking-wider">Level 1 CRLA Foundations Program</p>
+                </div>
+            </div>
+            
+            <!-- Real-Time Gamified Player Stats HUD -->
+            <div class="flex items-center gap-4 bg-slate-800/60 p-3 rounded-xl border border-[#007C89]/30 text-sm">
+                <div class="text-center px-2">
+                    <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tutor Rank</div>
+                    <div id="hud-rank" class="font-bold text-yellow-400">Tutor Novice 🌱</div>
+                </div>
+                <div class="h-8 w-[1px] bg-slate-700"></div>
+                <div class="text-center px-2">
+                    <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Tutor XP</div>
+                    <div class="font-bold text-[#00B4D8]" id="hud-xp">0 XP</div>
+                </div>
+                <div class="h-8 w-[1px] bg-slate-700"></div>
+                <div class="text-center px-2">
+                    <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Shift Rating</div>
+                    <div class="font-bold text-emerald-400" id="hud-rating">100% ⭐</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- APPLICATION MAIN BODY -->
+    <div class="flex-grow max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-4 gap-6 overflow-hidden">
+        
+        <!-- SIDEBAR MODULE NAVIGATOR -->
+        <aside class="lg:col-span-1 flex flex-col gap-4 overflow-y-auto">
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <h2 class="text-xs font-black text-[#0A2540] uppercase tracking-widest mb-3 flex items-center justify-between">
+                    <span>Training Pathway</span>
+                    <span id="overall-progress" class="text-[#007C89] font-bold">0% Done</span>
+                </h2>
+                
+                <!-- PROGRESS BAR -->
+                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden mb-4">
+                    <div id="overall-progress-bar" class="bg-[#007C89] h-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+
+                <!-- NAVIGATION BUTTON LIST -->
+                <nav class="space-y-2" id="module-nav-container">
+                    <!-- Loaded dynamically via javascript -->
+                </nav>
+            </div>
+
+            <!-- TCCD RESOURCE REFERRAL CHEATSHEET -->
+            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="text-xs font-black text-[#0A2540] uppercase tracking-widest mb-3 flex items-center gap-1.5 text-slate-700">
+                    <i class="fa-solid fa-circle-info text-[#007C89]"></i> Drop-In vs Appt. Checklist
+                </h3>
+                <div class="text-xs space-y-2 text-slate-600">
+                    <div class="p-2 bg-slate-50 rounded border border-slate-100">
+                        <strong class="text-[#007C89]">Drop-In Space:</strong>
+                        <p class="mt-0.5">Triaging multiple students, 10-15 min limit per check-in, active roaming, focus on setting up a task then walking away.</p>
+                    </div>
+                    <div class="p-2 bg-slate-50 rounded border border-slate-100">
+                        <strong class="text-[#0A2540]">Appointment Space:</strong>
+                        <p class="mt-0.5">50-minute dedicated focus, deep diagnostics, agenda setting, active check-ins, action plans for post-session study.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN INTERACTIVE CONTENT PLAYGROUND -->
+        <main class="lg:col-span-3 flex flex-col overflow-y-auto h-full pr-1">
+            
+            <!-- WELCOME & OVERVIEW BOARD -->
+            <div id="intro-card" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between h-full min-h-[450px]">
+                <div>
+                    <span class="bg-[#007C89]/10 text-[#007C89] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Welcome To the Learning Commons [cite: 1, 2]</span>
+                    <h2 class="text-3xl font-extrabold text-[#0A2540] mt-3 tracking-tight">The Foundation of Peer Tutoring</h2>
+                    <p class="text-slate-600 mt-4 text-base leading-relaxed">
+                        Peer tutoring is not about acting as an all-knowing professor, nor is it about doing a student's homework for them. According to the <strong>College Reading and Learning Association (CRLA)</strong> standard, your primary goal is to **facilitate independent learning**.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                        <div class="flex items-start gap-3 p-4 bg-emerald-50/50 rounded-xl border border-emerald-100">
+                            <span class="text-emerald-600 text-xl"><i class="fa-solid fa-square-check"></i></span>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">Our Primary Mission</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">Teach the student *how* to think, study, and solve, rather than just providing answers.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-4 bg-[#007C89]/5 rounded-xl border border-[#007C89]/10">
+                            <span class="text-[#007C89] text-xl"><i class="fa-solid fa-people-arrows"></i></span>
+                            <div>
+                                <h4 class="font-bold text-slate-800 text-sm">Two Service Landscapes</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">Adapt smoothly between structured 50-minute appointments and active drop-in hubs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-slate-100 pt-6 mt-8 flex justify-end">
+                    <button onclick="startTrainingPathway()" class="bg-[#007C89] hover:bg-[#0A2540] text-white font-bold py-3 px-6 rounded-xl transition duration-150 shadow-md flex items-center gap-2">
+                        <span>Initialize Training</span> <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- DYNAMIC LESSON PLAYER (RENDERED VIA JAVASCRIPT) -->
+            <div id="lesson-card" class="bg-white p-6 lg:p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between hidden h-full min-h-[450px]">
+                <div>
+                    <!-- Section Header tags -->
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-4">
+                        <div>
+                            <span id="lesson-topic-badge" class="bg-slate-100 text-slate-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Module 1</span>
+                            <h3 id="lesson-title" class="text-2xl font-black text-[#0A2540] mt-1">Lesson Title</h3>
+                        </div>
+                        <span id="lesson-xp-badge" class="text-xs font-bold text-yellow-600 bg-yellow-50 px-3 py-1 rounded-lg border border-yellow-100"><i class="fa-solid fa-star mr-1"></i>+50 XP</span>
+                    </div>
+
+                    <!-- Slide Content Area -->
+                    <div id="lesson-content-body" class="prose max-w-none text-slate-600 leading-relaxed text-sm lg:text-base space-y-4">
+                        <!-- Loaded dynamically -->
+                    </div>
+                </div>
+
+                <!-- Interactive Activity Zone inside the lesson -->
+                <div id="lesson-activity-zone" class="mt-6 p-4 bg-slate-50 rounded-xl border border-slate-200 hidden">
+                    <!-- Populated with dynamic mini activities -->
+                </div>
+
+                <!-- Footer Controller Buttons -->
+                <div class="border-t border-slate-100 pt-6 mt-8 flex justify-between items-center">
+                    <button id="lesson-prev-btn" onclick="previousSlide()" class="text-slate-500 hover:text-slate-800 font-bold text-sm flex items-center gap-1">
+                        <i class="fa-solid fa-arrow-left"></i> Back
+                    </button>
+                    <button id="lesson-action-btn" onclick="nextSlide()" class="bg-[#0A2540] hover:bg-[#007C89] text-white font-bold py-2.5 px-6 rounded-xl transition duration-150 flex items-center gap-2">
+                        <span id="lesson-btn-text">Continue</span> <i id="lesson-btn-icon" class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ROLEPLAY SHIFT SIMULATION ARENA -->
+            <div id="simulator-card" class="bg-slate-900 text-white p-6 lg:p-8 rounded-2xl shadow-md border border-slate-800 flex flex-col justify-between hidden h-full min-h-[500px]">
+                <div>
+                    <!-- Shift Header HUD -->
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+                        <div>
+                            <span class="bg-[#007C89] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">TCCD Learning Commons Shift Simulator [cite: 1, 2]</span>
+                            <h3 class="text-xl font-bold text-slate-100 mt-1 flex items-center gap-2">
+                                <i class="fa-solid fa-clock-rotate-left text-cyan-400"></i>
+                                Live Tutoring Scenario
+                            </h3>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="text-right">
+                                <div class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Patience Pool</div>
+                                <div id="sim-patience" class="text-sm font-black text-emerald-400">100 / 100</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[9px] text-slate-400 uppercase font-bold tracking-wider">Student Independence</div>
+                                <div id="sim-independence" class="text-sm font-black text-[#00B4D8]">50%</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Client/Student avatar card layout -->
+                    <div class="flex items-start gap-4 p-4 bg-slate-800/80 rounded-xl border border-slate-700 mb-6">
+                        <div class="bg-[#0A2540] p-3 rounded-xl border border-[#007C89] text-center w-16 shrink-0">
+                            <span id="sim-avatar-emoji" class="text-2xl">👨‍💻</span>
+                            <div id="sim-student-name" class="text-[9px] font-bold text-slate-300 mt-1 truncate">Student</div>
+                        </div>
+                        <div>
+                            <span id="sim-setting-badge" class="bg-[#007C89]/20 text-[#00B4D8] border border-[#007C89]/40 text-[9px] font-semibold px-2 py-0.5 rounded uppercase">Drop-In Lab</span>
+                            <p id="sim-situation-desc" class="text-sm text-slate-200 mt-1.5 leading-relaxed">
+                                A student rushes to your desk, drops down a math paper, and says: "I don't get any of this and it's due in twenty minutes. Can you do the first three steps for me?"
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Choice Matrix Zone -->
+                    <div class="space-y-3" id="sim-options-container">
+                        <!-- Loaded dynamically via script -->
+                    </div>
+                </div>
+
+                <!-- Simulation Info Banner -->
+                <div id="sim-feedback-panel" class="hidden p-4 rounded-xl border mt-6 flex items-start gap-3 transition-all duration-300">
+                    <span id="sim-feedback-icon" class="text-xl"></span>
+                    <div>
+                        <h4 id="sim-feedback-title" class="font-bold text-sm">Feedback Header</h4>
+                        <p id="sim-feedback-body" class="text-xs text-slate-300 mt-1"></p>
+                    </div>
+                </div>
+
+                <!-- Footer Navigation inside simulator -->
+                <div class="border-t border-slate-800 pt-4 mt-6 flex justify-end">
+                    <button id="sim-next-btn" class="bg-[#007C89] hover:bg-emerald-600 text-white font-bold py-2 px-5 rounded-lg text-sm transition hidden flex items-center gap-2">
+                        <span>Continue Shift</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- COMPLETION SCREEN -->
+            <div id="completion-card" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center flex flex-col justify-center items-center hidden h-full min-h-[450px]">
+                <div class="bg-emerald-50 text-emerald-600 p-4 rounded-full text-5xl mb-4 border border-emerald-100">
+                    <i class="fa-solid fa-certificate"></i>
+                </div>
+                <h3 class="text-3xl font-black text-[#0A2540] tracking-tight">Certification Earned!</h3>
+                <p class="text-[#007C89] font-bold text-sm tracking-wider uppercase mt-1">Certified Peer Tutor - TCCD Learning Commons [cite: 1, 2]</p>
+                <p class="text-slate-600 mt-4 max-w-md mx-auto text-sm leading-relaxed">
+                    Outstanding performance! You have navigated the core CRLA guidelines, completed all quizzes, and proven yourself during complex shifts.
+                </p>
+
+                <!-- Final score summary metrics -->
+                <div class="grid grid-cols-3 gap-4 max-w-md w-full bg-slate-50 border border-slate-200 rounded-xl p-4 mt-6">
+                    <div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Final XP</p>
+                        <p class="text-lg font-black text-[#0A2540]" id="final-xp-disp">0</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Shift Accuracy</p>
+                        <p class="text-lg font-black text-emerald-600" id="final-rating-disp">100%</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Status</p>
+                        <p class="text-lg font-black text-yellow-600">Certified 🎉</p>
+                    </div>
+                </div>
+
+                <button onclick="resetTrainingAcademy()" class="mt-8 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs px-4 py-2 rounded-lg transition">
+                    <i class="fa-solid fa-arrow-rotate-left mr-1"></i> Reset Training Module
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- TCCD FOOTER STATEMENT -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto shrink-0">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            <p>© 2026 Tarrant County College District (TCCD). Branded under CRLA standards for drop-in learning commons & appointment support centers.</p>
+        </div>
+    </footer>
+
+    <!-- TRAINING ACADEMY SCRIPT ENGINE -->
+    <script>
+        // Module Data Structure matching CRLA Level 1 Cert guidelines
+        const moduleDatabase = [
+            {
+                id: "m1",
+                title: "CRLA Ethics & boundaries",
+                short: "Ethics",
+                icon: "fa-scale-balanced",
+                slides: [
+                    {
+                        title: "The Boundaries of Peer Tutoring",
+                        xp: 50,
+                        content: `
+                            <p>As a tutor in the <strong>TCCD Learning Commons</strong> [cite: 1, 2], you are first and foremost a <strong>learning facilitator</strong>, not an answer key.</p>
+                            <div class="p-3 bg-amber-50 border-l-4 border-amber-500 rounded text-slate-700 my-4 text-sm">
+                                <strong>Crucial Distinction:</strong> Independent learning is built on struggling within boundaries. If you execute the equations, translate the texts, or rewrite paragraphs for the client, you create a dynamic of dependency.
+                            </div>
+                            <h4 class="font-bold text-slate-800 mt-4 mb-2">Ethics Checklist:</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-slate-600 text-sm">
+                                <li>Be honest: If you do not know a solution, say: "Let's lookup resources together."</li>
+                                <li>Protect Academic Integrity: Never write, calculate, or correct directly on student-graded assignments.</li>
+                                <li>Foster Metacognition: Guide students to reflect on their own solving pathways.</li>
+                            </ul>
+                        `,
+                        interactive: {
+                            type: "drag-drop",
+                            question: "Which of the following actions aligns with proper CRLA tutoring ethics?",
+                            choices: [
+                                { text: "Solving problem #3 to show them exactly how it's done for their homework grade.", correct: false, reason: "Violates academic integrity. Tutors must not do homework." },
+                                { text: "Co-creating a parallel example together to practice the method before they tackle homework.", correct: true, reason: "Excellent scaffolding! Using parallel problems builds true autonomy." },
+                                { text: "Polishing a student's paragraph with correct grammar and spelling directly in their doc.", correct: false, reason: "Editing for them deprives them of the opportunity to recognize mistakes." }
+                            ]
+                        }
+                    },
+                    {
+                        title: "Drop-In Hub vs. Appointment Rooms",
+                        xp: 50,
+                        content: `
+                            <p>Depending on your assignment, you may rotate between structured appointment slots and fast-paced drop-in zones.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                                <div class="p-3 bg-sky-50 rounded border border-sky-100 text-xs">
+                                    <h5 class="font-bold text-sky-800 uppercase tracking-wide">Drop-In Environment</h5>
+                                    <ul class="list-disc pl-4 mt-1 space-y-1">
+                                        <li>High speed, low footprint</li>
+                                        <li>Triaging multiple students at once</li>
+                                        <li>Set a 10-minute agenda & follow up</li>
+                                        <li>Do not linger at one table too long</li>
+                                    </ul>
+                                </div>
+                                <div class="p-3 bg-teal-50 rounded border border-teal-100 text-xs">
+                                    <h5 class="font-bold text-teal-800 uppercase tracking-wide">Appointment Environment</h5>
+                                    <ul class="list-disc pl-4 mt-1 space-y-1">
+                                        <li>50-minute structured block</li>
+                                        <li>Detailed diagnostics & strategy</li>
+                                        <li>Full undivided attention</li>
+                                        <li>Must wrap up with action plan</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <p class="text-sm">Both environments rely heavily on setting strong expectations in the first 3 minutes of contact.</p>
+                        `,
+                        interactive: {
+                            type: "check",
+                            question: "In a busy Drop-In Math center, what is the best strategy to prevent students from depending too much on your constant presence?",
+                            choices: [
+                                { text: "Pull up a chair and stay until they finish their whole homework module.", correct: false, reason: "Lingering isolates other students and breeds dependency." },
+                                { text: "Give them a targeted task, ask them to try the next step alone, and state: 'I will check back with you in 10 minutes.'", correct: true, reason: "Perfect triaging method. It encourages independent effort." },
+                                { text: "Quickly give them the answers to expedite the waiting queue.", correct: false, reason: "Violates academic boundaries." }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: "m2",
+                title: "Anatomy of a Session",
+                short: "Session Structure",
+                icon: "fa-hourglass-start",
+                slides: [
+                    {
+                        title: "The 3-Phase Session Cycle",
+                        xp: 60,
+                        content: `
+                            <p>Every professional tutoring interaction should structured around a clear three-part cycle to protect learning objectives:</p>
+                            <ol class="space-y-3 mt-4 text-sm">
+                                <li class="p-2.5 bg-slate-50 border-l-4 border-slate-400 rounded">
+                                    <strong class="text-slate-800">1. Opening & Agenda Setting (Minutes 1-5):</strong>
+                                    Warm welcome, diagnostic check of what the student wants to accomplish, and defining a realistic target for the session.
+                                </li>
+                                <li class="p-2.5 bg-slate-50 border-l-4 border-[#007C89] rounded">
+                                    <strong class="text-slate-800">2. Active Engagement (The Middle):</strong>
+                                    Facilitated exploration, student explaining steps back, questioning, summarizing patterns, and adjusting learning aids.
+                                </li>
+                                <li class="p-2.5 bg-slate-50 border-l-4 border-slate-400 rounded">
+                                    <strong class="text-slate-800">3. Closing & Action Plan (Final 5 mins):</strong>
+                                    Student summarizes what they learned. Establish clear individual study steps to complete before their next class.
+                                </li>
+                            </ol>
+                        `,
+                        interactive: {
+                            type: "check",
+                            question: "Why should you ask the student to summarize the key concepts at the end of the session, rather than summarizing them yourself?",
+                            choices: [
+                                { text: "To save your voice for the next shift assignment.", correct: false, reason: "While restful, it has no instructional value." },
+                                { text: "Because explaining back concepts helps solidify the student's learning and checks for remaining misconceptions.", correct: true, reason: "Excellent! Active retrieval is key to moving information to long-term memory." },
+                                { text: "To prove to the supervisor that the student was listening.", correct: false, reason: "Incorrect motivation." }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: "m3",
+                title: "Art of Questioning",
+                short: "Questioning",
+                icon: "fa-comments",
+                slides: [
+                    {
+                        title: "Socratic Questioning & Wait-Time",
+                        xp: 65,
+                        content: `
+                            <p>Tutors are guides, and our primary tools are <strong>open-ended questions</strong> rather than declarations. This matches the standard Socratic learning technique.</p>
+                            <div class="space-y-2 my-4">
+                                <div class="flex items-center gap-2 text-xs bg-red-50 text-red-800 p-2 rounded">
+                                    <i class="fa-solid fa-circle-xmark"></i>
+                                    <span><strong>Closed/Leading:</strong> "Does this factor equal (x-3)?"</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-xs bg-emerald-50 text-emerald-800 p-2 rounded">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span><strong>Open/Socratic:</strong> "What pattern do you notice in the signs here when multiplying?"</span>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-slate-800 text-sm mt-4">The Rule of Wait Time (The 5-Second Pause)</h4>
+                            <p class="text-xs text-slate-600 mt-1">
+                                After asking a question, resist the urge to fill the silence. Wait at least <strong>5 to 10 seconds</strong>. Students need time to process, translate, and form responses.
+                            </p>
+                        `,
+                        interactive: {
+                            type: "check",
+                            question: "A student is stuck on a chemistry formula. What is the most effective Socratic prompt to jumpstart their memory?",
+                            choices: [
+                                { text: "Remember, the formula is PV=nRT. Just put the pressure value into 'P' and write that down.", correct: false, reason: "That is telling, not questioning." },
+                                { text: "What variables have you identified in the word problem, and where can we find a formula that links them?", correct: true, reason: "Perfect. It redirects the student back to their own textbook and class resources." },
+                                { text: "Do you want me to just write out the formula for you?", correct: false, reason: "Never offer to do the work." }
+                            ]
+                        }
+                    }
+                ]
+            },
+            {
+                id: "m4",
+                title: "Shift Simulator Arena",
+                short: "Live Shift",
+                icon: "fa-gamepad",
+                slides: [
+                    {
+                        title: "Prepare for your Shift!",
+                        xp: 30,
+                        content: `
+                            <p>It's time to put your training to the test in the <strong>TCCD Learning Commons Shift Simulator</strong> [cite: 1, 2]!</p>
+                            <p class="mt-3">You will handle high-stakes interactive scenarios involving students visiting our physical centers. You'll need to balance:</p>
+                            <ul class="list-disc pl-5 space-y-2 mt-2 text-xs">
+                                <li><strong>Patience Pool:</strong> Maintain your energy and composure as a tutor.</li>
+                                <li><strong>Student Independence:</strong> Keep the student actively engaged without over-helping them.</li>
+                            </ul>
+                            <div class="p-3 bg-slate-950 text-cyan-300 rounded-lg text-xs font-mono border border-slate-800 mt-4 text-center">
+                                Tap 'Go to Simulator' below to begin your shift!
+                            </div>
+                        `,
+                        interactive: null
+                    }
+                ]
+            }
+        ];
+
+        // Simulation Roleplay Scenarios Data
+        const scenarios = [
+            {
+                student: "Damien (College Algebra)",
+                avatar: "👨‍💻",
+                setting: "Drop-In Hub",
+                situation: "Damien rushes to your table during a busy drop-in hour. He drops his notebook down and says: 'I have this assignment due in 10 minutes. Can you just write out the steps for this factoring problem real quick so I can submit it?'",
+                options: [
+                    {
+                        text: "Write out the first step for him to jumpstart his momentum.",
+                        patienceEffect: -10,
+                        independenceEffect: -20,
+                        xpEffect: 10,
+                        success: false,
+                        feedback: "Writing steps on a student's graded paper violates academic boundaries. Damien learned how to copy, not how to factor."
+                    },
+                    {
+                        text: "Say: 'Let's open up a scratch sheet. We'll do a parallel practice problem together first so you can crack this yourself.'",
+                        patienceEffect: -5,
+                        independenceEffect: 30,
+                        xpEffect: 60,
+                        success: true,
+                        feedback: "Excellent move! Parallel practice models the necessary steps without directly modifying their homework."
+                    },
+                    {
+                        text: "Apologize and point him toward the exit: 'I can't do your homework. You should have come in earlier.'" ,
+                        patienceEffect: -25,
+                        independenceEffect: 0,
+                        xpEffect: 0,
+                        success: false,
+                        feedback: "Tutors should always be encouraging. Turning them away abruptly damages rapport."
+                    }
+                ]
+            },
+            {
+                student: "Elena (English Composition)",
+                avatar: "👩‍🎓",
+                setting: "50-Min Appointment",
+                situation: "Elena sits down for her appointment. She has a rough draft of her essay on screen. She seems anxious: 'My professor says my thesis doesn't make sense. Can you rewrite it for me?'",
+                options: [
+                    {
+                        text: "Say: 'Let's look at your paper's main arguments together. If you had to summarize your key point to a friend in one sentence, what would you say?'",
+                        patienceEffect: 10,
+                        independenceEffect: 25,
+                        xpEffect: 70,
+                        success: true,
+                        feedback: "Fantastic Socratic questioning! By having her explain her point aloud, you help her generate her own clear thesis statement."
+                    },
+                    {
+                        text: "Open her document and type out a beautiful, ready-made thesis paragraph yourself.",
+                        patienceEffect: -20,
+                        independenceEffect: -40,
+                        xpEffect: 0,
+                        success: false,
+                        feedback: "Never write or type on a student's document. This is plagiarizing on their behalf."
+                    },
+                    {
+                        text: "Read her draft silently for 30 minutes, then tell her to write something about general sociology.",
+                        patienceEffect: -15,
+                        independenceEffect: -10,
+                        xpEffect: 20,
+                        success: false,
+                        feedback: "This leaves her without scaffolding and doesn't make good use of the 50-minute appointment."
+                    }
+                ]
+            },
+            {
+                student: "Marcus (History 1301)",
+                avatar: "👨‍🏫",
+                setting: "Drop-In Writing Center",
+                situation: "Marcus is looking for citations. He sits quietly, waiting for you to tell him exactly where to find every page number in his book. He is extremely passive and won't touch the keyboard.",
+                options: [
+                    {
+                        text: "Find all the citations for him to keep things moving.",
+                        patienceEffect: -20,
+                        independenceEffect: -30,
+                        xpEffect: 10,
+                        success: false,
+                        feedback: "This encourages academic dependency. He won't know how to locate references during his exams."
+                    },
+                    {
+                        text: "Say: 'Let's look up the index page of your textbook together. I'll search the first topic; then, I want you to look up the second one.'",
+                        patienceEffect: 5,
+                        independenceEffect: 25,
+                        xpEffect: 65,
+                        success: true,
+                        feedback: "Perfect collaborative approach! Handing responsibility back to the student builds their research confidence."
+                    }
+                ]
+            }
+        ];
+
+        // STATE ENGINE VARIABLES
+        let currentModuleIdx = 0;
+        let currentSlideIdx = 0;
+        let tutorXp = 0;
+        let rating = 100;
+        let simPatience = 100;
+        let simIndependence = 50;
+        let currentScenarioIdx = 0;
+        let scenarioActive = false;
+
+        // TRACKING COMPLETE MODULE LISTS
+        let completedModules = new Set();
+        let selectedAnswers = {}; // Keep track of quiz inputs
+
+        // INITIALIZATION
+        window.onload = function() {
+            initMenu();
+            renderActiveModule();
+            updateStatsHUD();
+        };
+
+        // RENDER MODULE NAV MENU LEFT COL
+        function initMenu() {
+            const nav = document.getElementById('module-nav-container');
+            nav.innerHTML = '';
+            
+            moduleDatabase.forEach((mod, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `nav-btn-${mod.id}`;
+                
+                // Styling depends on current active states
+                let btnStyle = "w-full text-left p-3 rounded-xl flex items-center justify-between border text-xs font-semibold transition duration-150 group ";
+                if(idx === currentModuleIdx) {
+                    btnStyle += "bg-[#007C89]/15 text-[#0A2540] border-[#007C89] shadow-sm";
+                } else if(completedModules.has(mod.id)) {
+                    btnStyle += "bg-emerald-50 text-emerald-800 border-emerald-200";
+                } else {
+                    btnStyle += "bg-white text-slate-700 border-slate-200 hover:bg-slate-50";
+                }
+
+                btn.className = btnStyle;
+                btn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="p-1.5 rounded-lg ${idx === currentModuleIdx ? 'bg-[#007C89] text-white' : 'bg-slate-100 text-slate-400'}">
+                            <i class="fa-solid ${mod.icon}"></i>
+                        </span>
+                        <div>
+                            <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Module ${idx + 1}</p>
+                            <p class="font-extrabold truncate max-w-[140px]">${mod.short}</p>
+                        </div>
+                    </div>
+                    <div>
+                        ${completedModules.has(mod.id) ? '<i class="fa-solid fa-circle-check text-emerald-600"></i>' : '<i class="fa-solid fa-chevron-right text-slate-300 opacity-0 group-hover:opacity-100 transition"></i>'}
+                    </div>
+                `;
+                
+                btn.onclick = () => jumpToModule(idx);
+                nav.appendChild(btn);
+            });
+
+            // Sync overall progress bar
+            const pct = Math.round((completedModules.size / moduleDatabase.length) * 100);
+            document.getElementById('overall-progress').innerText = `${pct}% Done`;
+            document.getElementById('overall-progress-bar').style.width = `${pct}%`;
+        }
+
+        // MODULE PLAYER CONTROLLER
+        function renderActiveModule() {
+            // Check if completing everything
+            if(completedModules.size === moduleDatabase.length) {
+                showCompletionScreen();
+                return;
+            }
+
+            // Set layout elements based on active states
+            document.getElementById('intro-card').classList.add('hidden');
+            document.getElementById('completion-card').classList.add('hidden');
+
+            const mod = moduleDatabase[currentModuleIdx];
+            
+            // Check if jumping to the special Simulator module
+            if(mod.id === "m4" && currentSlideIdx === mod.slides.length - 1) {
+                // Open Shift Simulator
+                document.getElementById('lesson-card').classList.add('hidden');
+                document.getElementById('simulator-card').classList.remove('hidden');
+                initSimulator();
+                return;
+            }
+
+            // Default Lesson card rendering
+            document.getElementById('simulator-card').classList.add('hidden');
+            document.getElementById('lesson-card').classList.remove('hidden');
+
+            // Slide Header Information
+            document.getElementById('lesson-topic-badge').innerText = `Module ${currentModuleIdx + 1} | Slide ${currentSlideIdx + 1} of ${mod.slides.length}`;
+            
+            const slide = mod.slides[currentSlideIdx];
+            document.getElementById('lesson-title').innerText = slide.title;
+            document.getElementById('lesson-xp-badge').innerHTML = `<i class="fa-solid fa-star mr-1 text-yellow-500"></i>+${slide.xp} XP`;
+            document.getElementById('lesson-content-body').innerHTML = slide.content;
+
+            // Handle back-button visibility
+            if(currentSlideIdx === 0 && currentModuleIdx === 0) {
+                document.getElementById('lesson-prev-btn').classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                document.getElementById('lesson-prev-btn').classList.remove('opacity-0', 'pointer-events-none');
+            }
+
+            // Set up Interactive Check-for-Understanding activity blocks
+            const activity = document.getElementById('lesson-activity-zone');
+            if(slide.interactive) {
+                activity.classList.remove('hidden');
+                
+                // Unique keys
+                const qKey = `${mod.id}_s${currentSlideIdx}`;
+                
+                let quizHTML = `<p class="font-bold text-xs text-[#0A2540] uppercase tracking-wider mb-2"><i class="fa-solid fa-clipboard-question text-[#007C89]"></i> Assessment Question:</p>`;
+                quizHTML += `<p class="text-xs text-slate-700 font-bold mb-3">${slide.interactive.question}</p>`;
+                quizHTML += `<div class="space-y-2">`;
+                
+                slide.interactive.choices.forEach((choice, cidx) => {
+                    const isSelected = selectedAnswers[qKey] === cidx;
+                    let btnStyle = "w-full text-left p-3 text-xs rounded-lg border transition font-medium flex items-center justify-between ";
+                    
+                    if(selectedAnswers[qKey] !== undefined) {
+                        // Answered state colors
+                        if(choice.correct) {
+                            btnStyle += "bg-emerald-50 text-emerald-800 border-emerald-200";
+                        } else if(isSelected) {
+                            btnStyle += "bg-rose-50 text-rose-800 border-rose-200";
+                        } else {
+                            btnStyle += "bg-white text-slate-400 border-slate-100 cursor-not-allowed";
+                        }
+                    } else {
+                        btnStyle += "bg-white text-slate-700 border-slate-200 hover:border-[#007C89] hover:bg-[#007C89]/5";
+                    }
+
+                    quizHTML += `
+                        <button ${selectedAnswers[qKey] !== undefined ? 'disabled' : ''} onclick="submitQuizAnswer(${cidx})" class="${btnStyle}">
+                            <span>${choice.text}</span>
+                            ${selectedAnswers[qKey] !== undefined && choice.correct ? '<i class="fa-solid fa-circle-check text-emerald-600"></i>' : ''}
+                            ${selectedAnswers[qKey] !== undefined && isSelected && !choice.correct ? '<i class="fa-solid fa-circle-xmark text-rose-600"></i>' : ''}
+                        </button>
+                    `;
+                });
+                
+                quizHTML += `</div>`;
+
+                // If answered, show rationale explanations
+                if(selectedAnswers[qKey] !== undefined) {
+                    const selectedChoice = slide.interactive.choices[selectedAnswers[qKey]];
+                    const statusClass = selectedChoice.correct ? 'bg-emerald-100 text-emerald-900 border-emerald-200' : 'bg-rose-100 text-rose-900 border-rose-200';
+                    quizHTML += `
+                        <div class="mt-4 p-3 rounded-lg text-xs border ${statusClass}">
+                            <strong>${selectedChoice.correct ? 'Correct! ' : 'Incorrect: '}</strong> ${selectedChoice.reason}
+                        </div>
+                    `;
+                }
+
+                activity.innerHTML = quizHTML;
+
+                // Disable forward movement until choice answered
+                if(selectedAnswers[qKey] === undefined) {
+                    document.getElementById('lesson-action-btn').disabled = true;
+                    document.getElementById('lesson-action-btn').className = "bg-slate-200 text-slate-400 font-bold py-2.5 px-6 rounded-xl cursor-not-allowed flex items-center gap-2";
+                } else {
+                    enableLessonActionBtn();
+                }
+            } else {
+                activity.classList.add('hidden');
+                enableLessonActionBtn();
+            }
+        }
+
+        function enableLessonActionBtn() {
+            document.getElementById('lesson-action-btn').disabled = false;
+            document.getElementById('lesson-action-btn').className = "bg-[#0A2540] hover:bg-[#007C89] text-white font-bold py-2.5 px-6 rounded-xl transition duration-150 flex items-center gap-2";
+            
+            const mod = moduleDatabase[currentModuleIdx];
+            if(currentSlideIdx === mod.slides.length - 1) {
+                document.getElementById('lesson-btn-text').innerText = "Complete Module";
+                document.getElementById('lesson-btn-icon').className = "fa-solid fa-circle-check text-xs text-emerald-400";
+            } else {
+                document.getElementById('lesson-btn-text').innerText = "Continue";
+                document.getElementById('lesson-btn-icon').className = "fa-solid fa-arrow-right text-xs";
+            }
+        }
+
+        // EVENT ACTION HANDLERS
+        function startTrainingPathway() {
+            currentModuleIdx = 0;
+            currentSlideIdx = 0;
+            renderActiveModule();
+        }
+
+        function jumpToModule(idx) {
+            currentModuleIdx = idx;
+            currentSlideIdx = 0;
+            renderActiveModule();
+            initMenu();
+        }
+
+        function submitQuizAnswer(cidx) {
+            const mod = moduleDatabase[currentModuleIdx];
+            const slide = mod.slides[currentSlideIdx];
+            const qKey = `${mod.id}_s${currentSlideIdx}`;
+            
+            selectedAnswers[qKey] = cidx;
+            
+            // Calculate and award score logic
+            const correct = slide.interactive.choices[cidx].correct;
+            if(correct) {
+                tutorXp += slide.xp;
+            } else {
+                rating = Math.max(50, rating - 10);
+            }
+
+            updateStatsHUD();
+            renderActiveModule();
+        }
+
+        function nextSlide() {
+            const mod = moduleDatabase[currentModuleIdx];
+            if(currentSlideIdx < mod.slides.length - 1) {
+                currentSlideIdx++;
+                renderActiveModule();
+            } else {
+                // Complete Module Process
+                completedModules.add(mod.id);
+                tutorXp += 100; // completion bonus points
+                
+                if(currentModuleIdx < moduleDatabase.length - 1) {
+                    currentModuleIdx++;
+                    currentSlideIdx = 0;
+                    renderActiveModule();
+                } else {
+                    showCompletionScreen();
+                }
+                initMenu();
+                updateStatsHUD();
+            }
+        }
+
+        function previousSlide() {
+            if(currentSlideIdx > 0) {
+                currentSlideIdx--;
+                renderActiveModule();
+            } else if(currentModuleIdx > 0) {
+                currentModuleIdx--;
+                currentSlideIdx = moduleDatabase[currentModuleIdx].slides.length - 1;
+                renderActiveModule();
+                initMenu();
+            }
+        }
+
+        function updateStatsHUD() {
+            // Update HUD elements
+            document.getElementById('hud-xp').innerText = `${tutorXp} XP`;
+            document.getElementById('hud-rating').innerText = `${rating}% ⭐`;
+            
+            // Determine dynamic badge ranks based on XP thresholds
+            let rank = "Tutor Novice 🌱";
+            if (tutorXp >= 400) rank = "Master Peer Tutor 🎓";
+            else if (tutorXp >= 200) rank = "Apprentice Tutor 🛡️";
+            
+            document.getElementById('hud-rank').innerText = rank;
+        }
+
+        // SHIFT SIMULATION ENGINE
+        function initSimulator() {
+            scenarioActive = true;
+            currentScenarioIdx = 0;
+            simPatience = 100;
+            simIndependence = 50;
+            
+            renderScenario();
+        }
+
+        function renderScenario() {
+            if(currentScenarioIdx >= scenarios.length) {
+                // Finish Simulator Scenario Quest
+                tutorXp += 150; // Challenge pass completion points award
+                completedModules.add("m4");
+                initMenu();
+                updateStatsHUD();
+                showCompletionScreen();
+                return;
+            }
+
+            const sc = scenarios[currentScenarioIdx];
+            document.getElementById('sim-avatar-emoji').innerText = sc.avatar;
+            document.getElementById('sim-student-name').innerText = sc.student;
+            document.getElementById('sim-setting-badge').innerText = sc.setting;
+            document.getElementById('sim-situation-desc').innerText = sc.situation;
+
+            // Render stats visual bars
+            document.getElementById('sim-patience').innerText = `${simPatience} / 100`;
+            document.getElementById('sim-independence').innerText = `${simIndependence}%`;
+
+            const optionsContainer = document.getElementById('sim-options-container');
+            optionsContainer.innerHTML = '';
+
+            document.getElementById('sim-feedback-panel').classList.add('hidden');
+            document.getElementById('sim-next-btn').classList.add('hidden');
+
+            sc.options.forEach((opt, oidx) => {
+                const optBtn = document.createElement('button');
+                optBtn.className = "w-full text-left p-3.5 bg-slate-800 hover:bg-slate-700/80 border border-slate-700 hover:border-[#007C89] rounded-xl text-xs transition duration-150 flex items-center justify-between";
+                optBtn.innerHTML = `
+                    <span>${opt.text}</span>
+                    <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
+                `;
+                optBtn.onclick = () => selectScenarioOption(oidx, optBtn);
+                optionsContainer.appendChild(optBtn);
+            });
+        }
+
+        function selectScenarioOption(oidx, element) {
+            const sc = scenarios[currentScenarioIdx];
+            const opt = sc.options[oidx];
+
+            // Lock all simulation option buttons
+            const btns = document.querySelectorAll('#sim-options-container button');
+            btns.forEach(b => b.disabled = true);
+
+            // Execute game metrics alterations
+            simPatience = Math.min(100, Math.max(0, simPatience + opt.patienceEffect));
+            simIndependence = Math.min(100, Math.max(0, simIndependence + opt.independenceEffect));
+            tutorXp += opt.xpEffect;
+
+            if(!opt.success) {
+                rating = Math.max(50, rating - 15);
+            }
+
+            updateStatsHUD();
+
+            // Refresh Simulator visual bars
+            document.getElementById('sim-patience').innerText = `${simPatience} / 100`;
+            document.getElementById('sim-independence').innerText = `${simIndependence}%`;
+
+            // Display Feedback elements
+            const feedback = document.getElementById('sim-feedback-panel');
+            const icon = document.getElementById('sim-feedback-icon');
+            const title = document.getElementById('sim-feedback-title');
+            const body = document.getElementById('sim-feedback-body');
+
+            feedback.classList.remove('hidden');
+            if(opt.success) {
+                feedback.className = "p-4 rounded-xl border border-emerald-500/30 bg-emerald-950/40 text-emerald-400 mt-6 flex items-start gap-3";
+                icon.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+                title.innerText = "Excellent Choice!";
+            } else {
+                feedback.className = "p-4 rounded-xl border border-rose-500/30 bg-rose-950/40 text-rose-400 mt-6 flex items-start gap-3";
+                icon.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i>`;
+                title.innerText = "Alternative Strategy Suggested";
+            }
+            body.innerText = opt.feedback;
+
+            // Show continue triggers
+            const nextBtn = document.getElementById('sim-next-btn');
+            nextBtn.classList.remove('hidden');
+            nextBtn.onclick = () => {
+                currentScenarioIdx++;
+                renderScenario();
+            };
+        }
+
+        function showCompletionScreen() {
+            document.getElementById('lesson-card').classList.add('hidden');
+            document.getElementById('simulator-card').classList.add('hidden');
+            document.getElementById('completion-card').classList.remove('hidden');
+
+            document.getElementById('final-xp-disp').innerText = tutorXp;
+            document.getElementById('final-rating-disp').innerText = `${rating}%`;
+        }
+
+        function resetTrainingAcademy() {
+            currentModuleIdx = 0;
+            currentSlideIdx = 0;
+            tutorXp = 0;
+            rating = 100;
+            simPatience = 100;
+            simIndependence = 50;
+            currentScenarioIdx = 0;
+            completedModules.clear();
+            selectedAnswers = {};
+            
+            initMenu();
+            renderActiveModule();
+            updateStatsHUD();
+        }
+    </script>
+</body>
+</html>
