@@ -4,758 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master AI Prompt Architect Console</title>
-    <!-- Tailwind CSS CDN for modern grid layouts and design foundations -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&family=JetBrains+Mono:wght=400;500;600&display=swap');
-        
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8fafc;
-            color: #334155;
-        }
-
-        .mono-font {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        /* Premium Light Glassmorphism cards */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 8px -1px rgba(15, 23, 42, 0.03);
-        }
-
-        .glass-card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .glass-card-hover:hover {
-            transform: translateY(-2px);
-            border-color: rgba(99, 102, 241, 0.25);
-            box-shadow: 0 12px 30px -4px rgba(99, 102, 241, 0.12);
-        }
-
-        /* Custom scrollbar for output box - light scheme */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(241, 245, 249, 0.8);
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(99, 102, 241, 0.2);
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: rgba(99, 102, 241, 0.4);
-        }
-
-        /* Animated slide-downs */
-        .collapsible-section {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-out, opacity 0.3s ease-out, margin 0.3s ease-out;
-            opacity: 0;
-        }
-
-        .collapsible-section.show {
-            max-height: 1000px;
-            opacity: 1;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Soft neon focus indicators for light mode */
-        input:focus, select:focus, textarea:focus {
-            box-shadow: 0 0 12px rgba(99, 102, 241, 0.15);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #334155; }
+        .mono-font { font-family: 'JetBrains Mono', monospace; }
+        .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(15, 23, 42, 0.08); box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05); }
+        .collapsible-section { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out, opacity 0.3s ease-out, margin 0.3s ease-out; opacity: 0; }
+        .collapsible-section.show { max-height: 1000px; opacity: 1; margin-top: 1rem; margin-bottom: 1rem; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     </style>
 </head>
-<body class="min-h-screen py-10 px-4 md:px-8 bg-slate-50/50">
+<body class="min-h-screen py-10 px-4 md:px-8 bg-slate-50">
 
 <div class="max-w-7xl mx-auto">
-    <!-- Header Area -->
-    <header class="text-center mb-10 relative">
-        <div class="absolute inset-0 -top-12 -z-10 flex justify-center">
-            <div class="w-96 h-96 bg-indigo-500 opacity-10 blur-[120px] rounded-full"></div>
-            <div class="w-96 h-96 bg-purple-500 opacity-10 blur-[120px] rounded-full -ml-36"></div>
-        </div>
-        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-50 text-indigo-600 border border-indigo-100 mb-4 tracking-wider uppercase">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            v2.1 Light Architect Console
-        </span>
-        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-3">
-            Master Prompt <span class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Generator</span>
-        </h1>
-        <p class="text-slate-500 max-w-2xl mx-auto text-base md:text-lg">
-            An advanced playground designed to translate strategic context, audience demands, and instructional theories into hyper-effective structured prompts.
-        </p>
+    <header class="text-center mb-10">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-600 border border-indigo-100 mb-4">v3.2 Architect Console</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3">Master Prompt <span class="text-indigo-600">Generator</span></h1>
     </header>
 
-    <!-- Quick Presets Bar -->
-    <div class="glass-card rounded-2xl p-4 mb-8">
-        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
-            <div class="flex items-center gap-2">
-                <span class="p-2 rounded-lg bg-indigo-50 text-indigo-600">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                </span>
-                <div>
-                    <h4 class="font-bold text-sm text-slate-800">Architect Quick Presets</h4>
-                    <p class="text-xs text-slate-500">Jumpstart generation with a curated expert framework</p>
+    <div class="glass-card rounded-2xl p-6 mb-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Smart Idea Input</label>
+                <div class="flex gap-2">
+                    <textarea id="smartIdea" placeholder="e.g., 'Draft a flyer for a student study workshop'" class="w-full h-12 bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm focus:border-indigo-500 resize-none"></textarea>
+                    <button onclick="smartFillForm()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-700">Smart Fill</button>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-2 w-full lg:w-auto">
-                <button type="button" onclick="loadPreset('education')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200 shadow-sm transition">Tutor Training</button>
-                <button type="button" onclick="loadPreset('marketing')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-purple-50 hover:text-purple-600 border border-slate-200 shadow-sm transition">SaaS Marketing Campaign</button>
-                <button type="button" onclick="loadPreset('image')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-amber-50 hover:text-amber-600 border border-slate-200 shadow-sm transition">Visual Concept</button>
-                <button type="button" onclick="loadPreset('communication')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-emerald-50 hover:text-emerald-600 border border-slate-200 shadow-sm transition">Professional Communication</button>
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Quick Presets</label>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="loadPreset('tutor')" class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold hover:border-indigo-300">Tutor Training</button>
+                    <button onclick="loadPreset('visual')" class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold hover:border-amber-300">Visual Concept</button>
+                    <button onclick="loadPreset('email')" class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold hover:border-emerald-300">Email/Memo</button>
+                    <button onclick="loadPreset('one_pager')" class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold hover:border-purple-300">One-Pager</button>
+                    <button onclick="loadPreset('proposal')" class="px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold hover:border-pink-300">Proposal</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Workspace Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        
-        <!-- Left Side: Custom Configuration Form -->
-        <div class="lg:col-span-5 flex flex-col gap-6">
-            <div class="glass-card rounded-2xl p-6">
-                <h3 class="text-lg font-bold text-slate-900 mb-5 flex items-center gap-2 border-b border-slate-100 pb-3">
-                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 text-xs font-extrabold">1</span>
-                    Discovery Parameters
-                </h3>
-                
-                <form id="architectForm" class="space-y-4" onsubmit="event.preventDefault();">
-                    <!-- Project Category -->
-                    <div>
-                        <label for="category" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Project Category</label>
-                        <select id="category" required onchange="handleCategoryChange()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 text-sm focus:outline-none focus:border-indigo-500 transition">
-                            <option value="">-- Choose Category Type --</option>
-                            <option value="Educational Resource">Educational Resource</option>
-                            <option value="Training Material">Training Material</option>
-                            <option value="Workshop">Workshop</option>
-                            <option value="Presentation">Presentation</option>
-                            <option value="Handout">Handout</option>
-                            <option value="Marketing/Flyer">Marketing / Flyer</option>
-                            <option value="Research Project">Research Project</option>
-                            <option value="Discussion Guide">Discussion Guide</option>
-                            <option value="AI Image">AI Image Generation</option>
-                            <option value="Professional Communication">Professional Communication</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-
-                    <!-- Deliverable Description -->
-                    <div>
-                        <label for="deliverable" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Final Deliverable Target</label>
-                        <input type="text" id="deliverable" placeholder="e.g., A 3-page tutor training guide on active listening" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 text-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 transition">
-                    </div>
-
-                    <!-- Target Audience -->
-                    <div>
-                        <label for="audience" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Primary User Persona</label>
-                        <select id="audience" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 text-sm focus:outline-none focus:border-indigo-500 transition">
-                            <option value="Students">Students</option>
-                            <option value="Tutors">Tutors</option>
-                            <option value="Faculty">Faculty</option>
-                            <option value="Staff">Staff</option>
-                            <option value="Administrators">Administrators</option>
-                            <option value="Community members">Community members</option>
-                            <option value="Customers">Customers</option>
-                            <option value="General public">General public</option>
-                        </select>
-                    </div>
-
-                    <!-- Action Outcome -->
-                    <div>
-                        <label for="outcome" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Primary Post-Interaction Goal</label>
-                        <textarea id="outcome" placeholder="What behavioral shift or specific knowledge uptake should take place?" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 text-sm placeholder-slate-400 h-20 focus:outline-none focus:border-indigo-500 transition resize-none"></textarea>
-                    </div>
-
-                    <!-- Core Content & Key Points -->
-                    <div>
-                        <label for="keyPoints" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Core Content or Key Points to Include</label>
-                        <textarea id="keyPoints" placeholder="List specific arguments, metrics, steps, or messaging hooks that must be incorporated into the output..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 text-sm placeholder-slate-400 h-24 focus:outline-none focus:border-indigo-500 transition custom-scrollbar resize-y"></textarea>
-                    </div>
-
-                    <!-- Target platform -->
-                    <div>
-                        <label for="platform" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Deploying AI Environment</label>
-                        <select id="platform" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 text-sm focus:outline-none focus:border-indigo-500 transition">
-                            <option value="ChatGPT">ChatGPT (GPT-4o / o1)</option>
-                            <option value="Claude">Claude (3.5 Sonnet / Opus)</option>
-                            <option value="Gemini">Gemini (1.5 Pro / Flash)</option>
-                            <option value="Perplexity">Perplexity AI (Search Optimized)</option>
-                            <option value="Notebook LM">Notebook LM (Source Analysis)</option>
-                            <option value="Canva AI">Canva AI</option>
-                            <option value="Midjourney/DALL-E">Midjourney / DALL-E (Text-To-Image)</option>
-                            <option value="Other">Other Generic LLM</option>
-                        </select>
-                    </div>
-
-                    <!-- Multi-Tier Tone Selector -->
-                    <div>
-                        <label for="toneStyle" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Architectural Tone Profile</label>
-                        <select id="toneStyle" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 text-sm focus:outline-none focus:border-indigo-500 transition">
-                            <option value="Structured & Academic">Structured & Academic</option>
-                            <option value="Highly Persuasive & Marketing Oriented">Highly Persuasive & Marketing Oriented</option>
-                            <option value="Empathetic, Peer-to-Peer & Supportive">Empathetic, Peer-to-Peer & Supportive</option>
-                            <option value="Extremely Dense & High-Output Technical">Extremely Dense & High-Output Technical</option>
-                            <option value="Concise, Executive Level Summary Style">Concise, Executive Level Summary Style</option>
-                        </select>
-                    </div>
-
-                    <!-- Context Constraint Limits -->
-                    <div>
-                        <label for="constraints" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Constraints & Guardrails</label>
-                        <input type="text" id="constraints" placeholder="e.g., Max 800 words, strictly accessible (WCAG 2.1)" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 text-sm placeholder-slate-400 focus:outline-none focus:border-indigo-500 transition">
-                    </div>
-
-                    <!-- Referenced Context Source Materials -->
-                    <div>
-                        <label for="resources" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Branding Guidelines / References / Source Materials</label>
-                        <textarea id="resources" placeholder="Paste structural documents, baseline data, standard operating policies, or target values..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 text-sm placeholder-slate-400 h-24 focus:outline-none focus:border-indigo-500 transition custom-scrollbar resize-y"></textarea>
-                    </div>
-
-                    <!-- ==============================================
-                         DYNAMIC CONTEXT PANELS
-                         ============================================== -->
-
-                    <!-- Panel A: Education / Instructional Design Rules -->
-                    <div id="eduFields" class="collapsible-section border-l-2 border-indigo-500 pl-4 space-y-3">
-                        <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block">Instructional Architecture Modifiers</span>
-                        <div>
-                            <label for="learningObjectives" class="block text-[11px] text-slate-500 font-semibold mb-1">Target Bloom's Learning Objectives</label>
-                            <input type="text" id="learningObjectives" placeholder="e.g., Identify cognitive biases, apply scaffolding methods" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs placeholder-slate-400 focus:outline-none focus:border-indigo-500 transition">
-                        </div>
-                        <div>
-                            <label for="deliveryFormat" class="block text-[11px] text-slate-500 font-semibold mb-1">Target Delivery Model / Time Available</label>
-                            <input type="text" id="deliveryFormat" placeholder="e.g., 60-minute in-person active workshop" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs placeholder-slate-400 focus:outline-none focus:border-indigo-500 transition">
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <input type="checkbox" id="udlEnable" checked class="rounded border-slate-300 bg-white text-indigo-600 focus:ring-indigo-500">
-                            <label for="udlEnable" class="text-[11px] text-slate-600 font-semibold select-none">Enforce strict UDL (Universal Design) Guidelines</label>
-                        </div>
-                    </div>
-
-                    <!-- Panel B: Presentation Rules -->
-                    <div id="presFields" class="collapsible-section border-l-2 border-purple-500 pl-4 space-y-3">
-                        <span class="text-xs font-bold text-purple-600 tracking-wider uppercase block">Presentation Engineering Modifiers</span>
-                        <div>
-                            <label for="slideCount" class="block text-[11px] text-slate-500 font-semibold mb-1">Slide count & Visual theme</label>
-                            <input type="text" id="slideCount" placeholder="e.g., 10 slides, light-mode modern technical styling" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs placeholder-slate-400 focus:outline-none focus:border-purple-500 transition">
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <input type="checkbox" id="speakerNotes" checked class="rounded border-slate-300 bg-white text-purple-600 focus:ring-purple-500">
-                            <label for="speakerNotes" class="text-[11px] text-slate-600 font-semibold select-none">Require robust speaker/presentation notes</label>
-                        </div>
-                    </div>
-
-                    <!-- Panel C: Marketing Strategy Rules -->
-                    <div id="marketingFields" class="collapsible-section border-l-2 border-pink-500 pl-4 space-y-3">
-                        <span class="text-xs font-bold text-pink-600 tracking-wider uppercase block">Copywriting & Persuasion Modifiers</span>
-                        <div>
-                            <label for="brandVoice" class="block text-[11px] text-slate-500 font-semibold mb-1">Brand Voice & Principal Brand Message</label>
-                            <input type="text" id="brandVoice" placeholder="e.g., Empathetic yet authoritative, sign up today" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs placeholder-slate-400 focus:outline-none focus:border-pink-500 transition">
-                        </div>
-                        <div>
-                            <label for="marketingFramework" class="block text-[11px] text-slate-500 font-semibold mb-1">Marketing Framework Choice</label>
-                            <select id="marketingFramework" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:border-pink-500 transition">
-                                <option value="AIDA (Attention, Interest, Desire, Action)">AIDA Framework</option>
-                                <option value="PAS (Problem, Agitate, Solve)">PAS Framework</option>
-                                <option value="StoryBrand / Hero's Journey">StoryBrand Blueprint</option>
-                                <option value="Before-After-Bridge (BAB)">Before-After-Bridge (BAB)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Panel D: AI Image Vector Modifiers -->
-                    <div id="imageFields" class="collapsible-section border-l-2 border-amber-500 pl-4 space-y-3">
-                        <span class="text-xs font-bold text-amber-600 tracking-wider uppercase block">Visual Parameter Overrides</span>
-                        <div>
-                            <label for="visualStyle" class="block text-[11px] text-slate-500 font-semibold mb-1">Visual Style, Camera Angle, Medium & lighting</label>
-                            <input type="text" id="visualStyle" placeholder="e.g., Cinematic lighting, 3D claymation style, high fidelity render" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs placeholder-slate-400 focus:outline-none focus:border-amber-500 transition">
-                        </div>
-                        <div>
-                            <label for="aspectRatio" class="block text-[11px] text-slate-500 font-semibold mb-1">Aspect Ratio / Output Dimensions</label>
-                            <select id="aspectRatio" class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-slate-800 text-xs focus:outline-none focus:border-amber-500 transition">
-                                <option value="16:9 (Cinematic Landscape)">16:9 (Landscape)</option>
-                                <option value="1:1 (Square Social)">1:1 (Square)</option>
-                                <option value="9:16 (Vertical Portrait / TikTok)">9:16 (Vertical Mobile)</option>
-                                <option value="4:5 (Standard Social Portrait)">4:5 (Classic Portrait)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Build Execution Button -->
-                    <button type="button" onclick="compileMasterPrompt()" class="w-full mt-6 bg-gradient-to-r from-indigo-600 via-indigo-700 to-indigo-800 hover:from-indigo-700 hover:to-indigo-900 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-500/10 transition flex items-center justify-center gap-2 group">
-                        <svg class="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                        Synthesize Master Prompt
-                    </button>
-                </form>
-            </div>
+        <div class="lg:col-span-5 glass-card rounded-2xl p-6">
+            <form id="architectForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Project Category</label>
+                    <select id="category" onchange="handleCategoryChange()" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500">
+                        <option value="">Select Category...</option>
+                        <option value="Educational Resource">Educational Resource</option>
+                        <option value="Training Material">Training Material</option>
+                        <option value="AI Image">AI Image</option>
+                        <option value="Professional Communication">Professional Communication</option>
+                        <option value="Proposal">Proposal</option>
+                        <option value="Flyer">Flyer</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Final Deliverable</label>
+                    <input type="text" id="deliverable" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Target Audience</label>
+                    <input type="text" id="audience" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Goal / Shift</label>
+                    <textarea id="outcome" class="w-full h-20 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Key Content / Points</label>
+                    <textarea id="keyPoints" class="w-full h-20 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:border-indigo-500"></textarea>
+                </div>
+                <div id="eduFields" class="collapsible-section border-l-4 border-indigo-500 pl-4">
+                    <input type="text" id="objectives" placeholder="Learning Objectives..." class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-xs">
+                </div>
+                <button type="button" onclick="compileMasterPrompt()" class="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">Synthesize Prompt</button>
+            </form>
         </div>
 
-        <!-- Right Side: Real-time Output & Meta Analysis -->
-        <div class="lg:col-span-7 flex flex-col gap-6">
-            <!-- Main Result Output Screen -->
-            <div id="outputContainer" class="glass-card rounded-2xl p-6 flex-1 flex flex-col min-h-[500px]">
-                <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
-                    <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                        <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-50 text-indigo-600 text-xs font-extrabold">2</span>
-                        Architectural Output
-                    </h3>
-                    
-                    <div id="actionToolbar" class="flex gap-2 items-center hidden">
-                        <!-- Custom Safe Clipboard Copy Trigger -->
-                        <button onclick="copyGeneratedPrompt()" title="Safe Copy to Clipboard" class="p-2 bg-slate-50 hover:bg-slate-100 text-indigo-600 border border-slate-200 rounded-xl transition flex items-center gap-1.5 text-xs font-semibold shadow-sm">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
-                            Copy Output
-                        </button>
-                        <!-- Download Markdown Feature -->
-                        <button onclick="downloadPromptMarkdown()" title="Export Markdown File" class="p-2 bg-slate-50 hover:bg-slate-100 text-emerald-600 border border-slate-200 rounded-xl transition flex items-center gap-1.5 text-xs font-semibold shadow-sm">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            Export
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Live Empty State Placeholder -->
-                <div id="outputPlaceholder" class="flex-1 flex flex-col items-center justify-center text-center py-20 px-4">
-                    <div class="p-4 rounded-full bg-slate-50 border border-slate-200 text-slate-400 mb-4 animate-bounce">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                    </div>
-                    <h4 class="font-bold text-slate-700 text-base mb-1">Awaiting Structural Directives</h4>
-                    <p class="text-xs text-slate-500 max-w-sm">
-                        Use the form parameters on the left or select an interactive preset block to trigger the visual prompt compiler engine.
-                    </p>
-                </div>
-
-                <!-- Main Active Work Desk -->
-                <div id="activeWorkSpace" class="hidden flex-1 flex flex-col gap-4">
-                    <!-- The generated prompt -->
-                    <div class="relative flex-1">
-                        <pre id="promptResult" class="w-full h-full min-h-[300px] max-h-[550px] overflow-auto custom-scrollbar bg-slate-50 border border-slate-200 rounded-xl p-5 text-slate-800 mono-font text-xs md:text-sm whitespace-pre-wrap select-text"></pre>
-                    </div>
-
-                    <!-- Meta explanation rationale -->
-                    <div id="metaExplanation" class="p-4 rounded-xl bg-indigo-50 border border-indigo-100 text-slate-600 text-xs leading-relaxed space-y-2"></div>
-                </div>
+        <div class="lg:col-span-7 glass-card rounded-2xl p-6 flex flex-col">
+            <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                <h3 class="text-lg font-bold text-slate-900">Architectural Output</h3>
+                <button id="copyBtn" onclick="copyPrompt()" class="hidden px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[10px] font-bold uppercase tracking-wider">Copy Output</button>
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Custom Notification Toast Overlays -->
-<div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
-
-<!-- Custom Modal System instead of default browser alerts -->
-<div id="customModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center hidden">
-    <div class="bg-white border border-slate-200 rounded-2xl max-w-md w-full p-6 mx-4 shadow-2xl relative">
-        <h3 id="modalTitle" class="text-lg font-bold text-slate-900 mb-2">Notice</h3>
-        <p id="modalBody" class="text-sm text-slate-600 mb-6"></p>
-        <div class="flex justify-end gap-2">
-            <button onclick="closeModal()" class="px-5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition">Close</button>
+            <pre id="promptResult" class="flex-1 w-full bg-slate-950 text-indigo-300 p-5 rounded-xl text-xs mono-font whitespace-pre-wrap overflow-auto custom-scrollbar">Awaiting input...</pre>
         </div>
     </div>
 </div>
 
 <script>
-    
-    // Global store of state
-    let activePromptValue = "";
-
-    // Toggle relevant conditional form panels based on the selected Category
     function handleCategoryChange() {
-        const category = document.getElementById('category').value;
-        
-        // Retrieve dynamic divs
-        const edu = document.getElementById('eduFields');
-        const pres = document.getElementById('presFields');
-        const mkt = document.getElementById('marketingFields');
-        const img = document.getElementById('imageFields');
-
-        // Close all initially
-        edu.classList.remove('show');
-        pres.classList.remove('show');
-        mkt.classList.remove('show');
-        img.classList.remove('show');
-
-        // Reveal based on selections
-        if (category === "Educational Resource" || category === "Training Material" || category === "Workshop" || category === "Discussion Guide") {
-            edu.classList.add('show');
-        } else if (category === "Presentation") {
-            pres.classList.add('show');
-        } else if (category === "Marketing/Flyer") {
-            mkt.classList.add('show');
-        } else if (category === "AI Image") {
-            img.classList.add('show');
-        }
+        const cat = document.getElementById('category').value;
+        document.getElementById('eduFields').classList.toggle('show', ['Educational Resource', 'Training Material'].includes(cat));
     }
 
-    
-    // Interactive Load Settings for Presets
+    function smartFillForm() {
+        const idea = document.getElementById('smartIdea').value.toLowerCase();
+        if (idea.includes('tutor') || idea.includes('training')) loadPreset('tutor');
+        else if (idea.includes('flyer')) loadPreset('flyer');
+        else if (idea.includes('email') || idea.includes('memo')) loadPreset('email');
+        else if (idea.includes('proposal')) loadPreset('proposal');
+        else if (idea.includes('visual') || idea.includes('image')) loadPreset('visual');
+        else if (idea.includes('one') || idea.includes('page')) loadPreset('one_pager');
+    }
+
     function loadPreset(type) {
-        const categoryEl = document.getElementById('category');
-        const deliverableEl = document.getElementById('deliverable');
-        const audienceEl = document.getElementById('audience');
-        const outcomeEl = document.getElementById('outcome');
-        const keyPointsEl = document.getElementById('keyPoints');
-        const platformEl = document.getElementById('platform');
-        const toneEl = document.getElementById('toneStyle');
-        const constraintsEl = document.getElementById('constraints');
-        const resourcesEl = document.getElementById('resources');
-
-        if (type === 'education') {
-            categoryEl.value = 'Training Material';
-            deliverableEl.value = '3-page Interactive Active Listening Field Guide';
-            audienceEl.value = 'Tutors';
-            outcomeEl.value = 'Equip both peer and professional tutors with practical active listening framework triggers to de-escalate frustration during STEM tutoring sessions.';
-            keyPointsEl.value = "1. Define 'The 3-Second Rule' (waiting before answering a client).\n2. Highlight non-verbal grounding cues (eye level, open posture).\n3. Differentiate between empathetic validation and premature validation of a wrong equation.";
-            platformEl.value = 'Claude';
-            toneEl.value = 'Empathetic, Peer-to-Peer & Supportive';
-            constraintsEl.value = 'Max 3 structural pages, highly scannable, WCAG 2.1 contrast levels';
-            resourcesEl.value = 'Learning Center Policies: Focus on cognitive scaffolding over giving straight answers. Standard session limit is strictly 50 minutes. Tailor references to suit both student-peer tutors and hired professional tutors.';
-            
-            // Trigger dynamic view toggles
-            handleCategoryChange();
-            
-            // Set dynamic child targets
-            document.getElementById('learningObjectives').value = 'Formulate open-ended questions, implement silent pause protocols, identify cognitive blockages';
-            document.getElementById('deliveryFormat').value = '3-part sequence training manual with practical worksheets';
-            document.getElementById('udlEnable').checked = true;
-
-            showToast("Tutor Training template loaded!", "success");
-
-        } else if (type === 'communication') {
-            categoryEl.value = 'Professional Communication';
-            deliverableEl.value = 'Executive Stakeholder Funding Memo & Program Briefing';
-            audienceEl.value = 'Administrators';
-            outcomeEl.value = 'Present clear student retention metrics to secure administrative budget approval to scale up the center\'s peer and professional staffing.';
-            keyPointsEl.value = "1. Frame the peer tutoring program as a core driver of first-year retention.\n2. Detail the exact funding shortfall ($20k) and how many extra tutoring hours it translates to.\n3. Show a projection of projected student success rates over the next fiscal cycle.";
-            platformEl.value = 'ChatGPT';
-            toneEl.value = 'Concise, Executive Level Summary Style';
-            constraintsEl.value = 'Max 500 words, highly scannable markdown, executive format with actionable metrics';
-            resourcesEl.value = 'Program Impact Data: 94% retention rate for regular student visitors, 15% increase in course pass-rates. Requested budget: $20,000 for additional peer & professional tutor coverage.';
-            
-            handleCategoryChange();
-            showToast("Professional Communication template loaded!", "success");
-
-        } else if (type === 'marketing') {
-            categoryEl.value = 'Marketing/Flyer';
-            deliverableEl.value = 'Strategic Cold Email Sequencing System (4 High-Converting emails)';
-            audienceEl.value = 'Customers';
-            outcomeEl.value = 'Drive high-quality conversions (free trial account signups) for our new modern collaborative project board software.';
-            keyPointsEl.value = "1. Email 1: Focus on the cognitive load of clutter (Problem/Agitate).\n2. Email 2: Introduce the 'Single Timeline View' feature.\n3. Email 3: Offer a 14-day zero-card trial option.\n4. Email 4: Last-chance follow-up focusing on alignment.";
-            platformEl.value = 'ChatGPT';
-            toneEl.value = 'Highly Persuasive & Marketing Oriented';
-            constraintsEl.value = 'Emails must stay under 150 words per instance, highly clear typography';
-            resourcesEl.value = 'Value Prop: Absolute project clarity without the Jira bloat. Pricing: Free for teams up to 5, then $9/user/month. Key hook: Real-time visual timeline sync.';
-            
-            handleCategoryChange();
-            
-            document.getElementById('brandVoice').value = 'Witty, conversational, highly outcome-focused, no standard corporate jargon.';
-            document.getElementById('marketingFramework').value = 'Before-After-Bridge (BAB)';
-            
-            showToast("SaaS Marketing template loaded!", "success");
-
-        } else if (type === 'image') {
-            categoryEl.value = 'AI Image';
-            deliverableEl.value = 'A photorealistic hero image representing modern collaboration';
-            audienceEl.value = 'General public';
-            outcomeEl.value = 'Evoke feelings of warmth, modern efficiency, and high-tech alignment.';
-            keyPointsEl.value = "1. Clear focal point on a sleek, glowing holographic UI table.\n2. Three diverse specialists leaning in, with expressions of shared understanding.\n3. Subtle depth of field focusing on hands arranging digital visual components.";
-            platformEl.value = 'Midjourney/DALL-E';
-            toneEl.value = 'Structured & Academic'; 
-            constraintsEl.value = 'Vibrant but natural palette, clean background, no text overlays.';
-            resourcesEl.value = 'Keywords: Diverse team, modern architectural co-working space, glowing fiber-optic streams, warm golden hour lighting.';
-            
-            handleCategoryChange();
-            
-            document.getElementById('visualStyle').value = 'Ultra-realistic, 8k resolution, Hasselblad lens capture, warm cinematic lighting.';
-            document.getElementById('aspectRatio').value = '16:9 (Cinematic Landscape)';
-
-            showToast("Visual Concept template loaded!", "success");
-        }
+        const data = {
+            tutor: { cat: 'Training Material', del: 'Active Listening Guide', aud: 'Tutors', out: 'Improve tutoring effectiveness.', pts: '1. Wait 3 seconds\n2. Eye contact\n3. Paraphrase' },
+            visual: { cat: 'AI Image', del: 'Concept Board', aud: 'Design Team', out: 'Create a mood board.', pts: '1. Color Palette\n2. Style Guide' },
+            email: { cat: 'Professional Communication', del: 'Security Memo', aud: 'Staff', out: 'Ensure compliance.', pts: '1. Deadline Monday\n2. Security Tokens' },
+            one_pager: { cat: 'Educational Resource', del: 'One-Pager', aud: 'Stakeholders', out: 'Summarize roadmap.', pts: '1. Milestones\n2. Budget\n3. Timeline' },
+            proposal: { cat: 'Proposal', del: 'Funding Proposal', aud: 'Investors', out: 'Secure funding.', pts: '1. Market Gap\n2. Solution' },
+            flyer: { cat: 'Flyer', del: 'Study Workshop Flyer', aud: 'Students', out: 'Drive attendance.', pts: '1. Event Date\n2. Location\n3. Benefit to student' }
+        };
+        const p = data[type];
+        document.getElementById('category').value = p.cat;
+        document.getElementById('deliverable').value = p.del;
+        document.getElementById('audience').value = p.aud;
+        document.getElementById('outcome').value = p.out;
+        document.getElementById('keyPoints').value = p.pts;
+        handleCategoryChange();
     }
 
-    // Core Engine Compiler: Aggregates context parameters into structured Markdown Prompts
-    function compileMasterPrompt() {
-        // Collect basic inputs
-        const category = document.getElementById('category').value;
-        const deliverable = document.getElementById('deliverable').value;
-        const audience = document.getElementById('audience').value;
-        const outcome = document.getElementById('outcome').value;
-        const keyPoints = document.getElementById('keyPoints').value;
-        const platform = document.getElementById('platform').value;
-        const toneStyle = document.getElementById('toneStyle').value;
-        const constraints = document.getElementById('constraints').value;
-        const resources = document.getElementById('resources').value;
-
-        // Validations
-        if (!category) {
-            openModal("Configuration Error", "Please select a Project Category type to initialize the Prompt synthesis.");
-            return;
-        }
-        if (!deliverable.trim()) {
-            openModal("Configuration Error", "Please specify a Target Deliverable.");
-            return;
-        }
-        if (!outcome.trim()) {
-            openModal("Configuration Error", "Please fill in the Post-Interaction Goal parameter.");
-            return;
-        }
-
-        // Generate custom System Role based on inputs
-        let assignedRole = "Subject Matter Expert & Strategy Consultant";
-        if (category === "Educational Resource" || category === "Training Material" || category === "Workshop") {
-            assignedRole = "Principal Instructional Designer, Curriculum Specialist & Pedagogy Expert";
-        } else if (category === "Marketing/Flyer") {
-            assignedRole = "Direct-Response Copywriter, Conversion Optimization Strategist, and Visual Designer";
-        } else if (category === "AI Image") {
-            assignedRole = "Creative Director, Prompt Engineer, Cinematographer & Concept Artist";
-        } else if (category === "Professional Communication") {
-            assignedRole = "Corporate Communications Consultant, Chief of Staff, and Executive Strategy Planner";
-        }
-
-        // Setup the primary Prompt architecture layout
-        let outputPrompt = `### [SYSTEM DIRECTIVE]
-You will adopt the role of a highly skilled **${assignedRole}** optimized to generate top-tier outputs for **${platform}**. Your objective is to formulate an incredibly high-fidelity, polished, and structured asset based strictly on the parameters specified below.
-
-### [EXECUTIVE SCOPE]
-- **Deliverable Target:** ${deliverable}
-- **Primary Audience/Persona:** This asset is carefully designed for **${audience}**.
-- **Post-Interaction Behavioral Goal:** ${outcome}
-- **Architectural Tone Profile:** Conduct all generations adhering strictly to a **${toneStyle}** tone.
-
-`;
-
-        // Process Core Content / Key Points
-        if (keyPoints.trim()) {
-            outputPrompt += `### [CORE CONTENT & KEY POINTS]
-You must explicitly incorporate the following specific arguments, ideas, steps, or details during generation:
-${keyPoints.split('\n').map(line => line.trim() ? `- ${line.trim()}` : '').filter(line => line).join('\n')}
-
-`;
-        }
-
-        // Process Category-Specific Dynamic Modifiers
-        let explanationHTML = "";
-        
-        if (category === "Educational Resource" || category === "Training Material" || category === "Workshop" || category === "Discussion Guide") {
-            const learningObjectives = document.getElementById('learningObjectives').value;
-            const deliveryFormat = document.getElementById('deliveryFormat').value;
-            const udlEnable = document.getElementById('udlEnable').checked;
-
-            outputPrompt += `### [INSTRUCTIONAL DESIGN COMPLIANCE]
-`;
-            if (learningObjectives) {
-                outputPrompt += `- **Bloom's Learning Objectives:** Align actions to enable the reader to: "${learningObjectives}".\n`;
-            }
-            if (deliveryFormat) {
-                outputPrompt += `- **Target Delivery Format & Context:** Structurally fit the delivery mechanism of: "${deliveryFormat}".\n`;
-            }
-            if (udlEnable) {
-                outputPrompt += `- **Universal Design for Learning (UDL) Guidelines:** You must strictly ensure multiple means of representation, engagement, and clear textual chunking. Provide clear action triggers and scaffold knowledge sequentially.\n`;
-            }
-            outputPrompt += `\n`;
-
-            explanationHTML = `
-                <p class="font-bold text-indigo-900 mb-1">Pedagogical Framework Applied:</p>
-                <p>This synthesized prompt implements <strong>Bloom's Taxonomy</strong> and optionally <strong>Universal Design for Learning (UDL)</strong> to guarantee high educational retention and strict cognitive scaffolding. Perfect for generating accessible training resources.</p>
-            `;
-
-        } else if (category === "Presentation") {
-            const slideCount = document.getElementById('slideCount').value;
-            const speakerNotes = document.getElementById('speakerNotes').checked;
-
-            outputPrompt += `### [PRESENTATION SPECIFICATIONS]
-`;
-            if (slideCount) {
-                outputPrompt += `- **Slide Breakdown:** Plan for a structure containing: "${slideCount}".\n`;
-            }
-            if (speakerNotes) {
-                outputPrompt += `- **Speaker Notes Directive:** For every individual slide/section, append comprehensive speaker notes detailing the verbal explanation, key statistics, and transition triggers.\n`;
-            }
-            outputPrompt += `\n`;
-
-            explanationHTML = `
-                <p class="font-bold text-indigo-900 mb-1">Presentation Engineering Applied:</p>
-                <p>This layout forces the LLM to structure outputs slide-by-slide rather than text walls, injecting explicit structural transitions and speaker delivery guides.</p>
-            `;
-
-        } else if (category === "Marketing/Flyer") {
-            const brandVoice = document.getElementById('brandVoice').value;
-            const marketingFramework = document.getElementById('marketingFramework').value;
-
-            outputPrompt += `### [PERSUASION & MARCOM DIRECTIVES]
-`;
-            if (brandVoice) {
-                outputPrompt += `- **Brand Voice Attributes:** Integrate attributes: "${brandVoice}".\n`;
-            }
-            if (marketingFramework) {
-                outputPrompt += `- **Primary Marketing Framework:** Formulate all copy points utilizing the structurally sound **${marketingFramework}** paradigm.\n`;
-            }
-            outputPrompt += `\n`;
-
-            explanationHTML = `
-                <p class="font-bold text-indigo-900 mb-1">Marketing Psychometrics Applied:</p>
-                <p>By forcing the <strong>${marketingFramework || 'selected framework'}</strong>, the output avoids standard fluff and moves directly down the conversion funnel. Brand voice enforcement aligns tone metrics with your guidelines.</p>
-            `;
-
-        } else if (category === "AI Image") {
-            const visualStyle = document.getElementById('visualStyle').value;
-            const aspectRatio = document.getElementById('aspectRatio').value;
-
-            outputPrompt += `### [VISUAL & PHOTOMETRIC COMPOSITION]
-`;
-            if (visualStyle) {
-                outputPrompt += `- **Visual Styling Parameters:** Emphasize details: "${visualStyle}".\n`;
-            }
-            if (aspectRatio) {
-                outputPrompt += `- **Aspect Ratio Standard:** --ar ${aspectRatio.split(' ')[0]}\n`;
-            }
-            outputPrompt += `- **Core Directives:** Exclude low-quality artifacts, text overlays, signatures, or watermark elements. Maximize composition contrast.\n\n`;
-
-            explanationHTML = `
-                <p class="font-bold text-indigo-900 mb-1">Visual Prompt Composition Applied:</p>
-                <p>Configured specifically to restrict standard image generator errors (like stray text or poor compositions). Aspect ratio formatting works natively in platforms like Midjourney.</p>
-            `;
-        } else {
-            explanationHTML = `
-                <p class="font-bold text-indigo-900 mb-1">Strategic Prompt Architecture:</p>
-                <p>This customized prompt isolates background context from instructions to reduce AI drift. By specifying the target persona (${audience}) and goal, the AI focuses directly on conversion metrics.</p>
-            `;
-        }
-
-        // Add constraints if present
-        if (constraints.trim()) {
-            outputPrompt += `### [CONSTRAINTS & GUARDRAILS]
-- **Boundary Conditions:** ${constraints}
-- **Quality Standard:** Do not use filler introductory phrases. Start directly with the synthesized content.
-- Ensure all content meets professional output standards without any placeholders or unfinished blocks.
-
-`;
-        }
-
-        // Add resource documents if present
-        if (resources.trim()) {
-            outputPrompt += `### [SOURCE DATA & BASELINE GUIDELINES]
-Please refer directly to the baseline context files below as reference values for terminology, limits, and alignment details:
-\`\`\`text
-${resources}
-\`\`\`
-
-`;
-        }
-
-        outputPrompt += `### [ACTION DEPLOYMENT]
-Generate the final deliverable according to the precise constraints and strategic targets stated above.`;
-
-        // Update active variables and render to view screen
-        activePromptValue = outputPrompt;
-        document.getElementById('promptResult').innerText = outputPrompt;
-        document.getElementById('metaExplanation').innerHTML = explanationHTML;
-
-        // Transition views
-        document.getElementById('outputPlaceholder').classList.add('hidden');
-        document.getElementById('activeWorkSpace').classList.remove('hidden');
-        document.getElementById('actionToolbar').classList.remove('hidden');
-
-        showToast("Master Prompt synthesized successfully!", "success");
-    }
-
-    
-    // Copy synthesized string to clipboard securely within iframes
-    function copyGeneratedPrompt() {
-        if (!activePromptValue) return;
-
-        // Safe legacy fallback implementation as navigator.clipboard might fail in sandboxed frames
-        const tempTextarea = document.createElement("textarea");
-        tempTextarea.value = activePromptValue;
-        tempTextarea.style.position = "fixed";  // Avoid scrolling to bottom
-        document.body.appendChild(tempTextarea);
-        tempTextarea.focus();
-        tempTextarea.select();
-
+    async function copyPrompt() {
+        const text = document.getElementById('promptResult').innerText;
         try {
-            const successful = document.execCommand('copy');
-            if (successful) {
-                showToast("Copied to clipboard successfully!", "success");
-            } else {
-                showToast("Copy failed, please select manually.", "error");
-            }
-        } catch (err) {
-            showToast("Clipboard restriction detected.", "error");
+            await navigator.clipboard.writeText(text);
+            const btn = document.getElementById('copyBtn');
+            btn.innerText = 'Copied!';
+            setTimeout(() => btn.innerText = 'Copy Output', 2000);
+        } catch (e) {
+            console.error('Copy failed', e);
         }
-
-        document.body.removeChild(tempTextarea);
     }
 
-    // Export generated prompt to a structured Markdown File
-    function downloadPromptMarkdown() {
-        if (!activePromptValue) return;
-
-        const blob = new Blob([activePromptValue], { type: 'text/markdown;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        
-        // Structure neat filename based on selected category
-        const categorySlug = document.getElementById('category').value.toLowerCase().replace(/[^a-z0-9]+/g, '_');
-        link.setAttribute("href", url);
-        link.setAttribute("download", `master_prompt_${categorySlug || 'architect'}.md`);
-        link.style.visibility = 'hidden';
-        
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        showToast("Markdown exported!", "success");
-    }
-
-    // UI Toast Component Helper
-    function showToast(message, type = "success") {
-        const container = document.getElementById('toastContainer');
-        const toast = document.createElement('div');
-        
-        toast.className = `p-3.5 rounded-xl shadow-lg border text-xs font-semibold flex items-center gap-2 transition duration-300 transform translate-y-2 opacity-0 pointer-events-auto max-w-sm bg-white`;
-        
-        if (type === "success") {
-            toast.className += " text-emerald-600 border-emerald-100 bg-emerald-50/80";
-            toast.innerHTML = `<svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ${message}`;
-        } else {
-            toast.className += " text-rose-600 border-rose-100 bg-rose-50/80";
-            toast.innerHTML = `<svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> ${message}`;
-        }
-
-        container.appendChild(toast);
-        
-        // Micro-interaction transition
-        setTimeout(() => {
-            toast.classList.remove('translate-y-2', 'opacity-0');
-        }, 10);
-
-        // Auto destroy toast
-        setTimeout(() => {
-            toast.classList.add('opacity-0', 'translate-y-1');
-            setTimeout(() => {
-                toast.remove();
-            }, 300);
-        }, 3500);
-    }
-
-    // Custom Modal Controllers
-    function openModal(title, body) {
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalBody').innerText = body;
-        document.getElementById('customModal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-        document.getElementById('customModal').classList.add('hidden');
+    function compileMasterPrompt() {
+        const p = `### SYSTEM ROLE\nExpert Consultant for ${document.getElementById('category').value}\n\n### DELIVERABLE\n${document.getElementById('deliverable').value} for ${document.getElementById('audience').value}\n\n### GOAL\n${document.getElementById('outcome').value}\n\n### CORE CONTENT\n${document.getElementById('keyPoints').value}\n\n### INSTRUCTION\nGenerate a professional, structured document based on these parameters.`;
+        document.getElementById('promptResult').innerText = p;
+        document.getElementById('copyBtn').classList.remove('hidden');
     }
 </script>
 </body>
