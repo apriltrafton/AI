@@ -74,7 +74,7 @@
             <svg class="w-3.5 h-3.5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
             </svg>
-            Learning Commons Studio v5.3
+            Learning Commons Studio v6.0 (Enhanced)
         </span>
         <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 mb-2">
             Learning Support <span class="bg-gradient-to-r from-slate-900 to-lime-600 bg-clip-text text-transparent">Prompt Architect</span>
@@ -86,15 +86,31 @@
 
     <!-- Quick Brainstorm and Presets Hub -->
     <div class="glass-card rounded-2xl p-5 mb-6 border-l-4 border-lime-500">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            <div class="lg:col-span-5">
-                <label for="smartIdea" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Loose Idea / Smart Assist Fill</label>
-                <div class="flex gap-2">
-                    <textarea id="smartIdea" placeholder="e.g., Proposal for embedding tutors in gateway algebra, or a midterm biology study flyer with free coffee..." class="w-full h-12 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none transition resize-none custom-scrollbar font-medium"></textarea>
-                    <button type="button" onclick="smartFillForm()" class="px-4 bg-slate-900 hover:bg-slate-800 text-lime-400 hover:text-lime-300 rounded-xl text-xs font-extrabold shadow-md transition-all flex items-center gap-1.5 shrink-0 border border-slate-800">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        Smart Fill
-                    </button>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <div class="lg:col-span-5 space-y-3">
+                <div>
+                    <label for="smartIdea" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Loose Idea / Smart Assist Fill</label>
+                    <div class="flex gap-2">
+                        <textarea id="smartIdea" placeholder="e.g., Proposal for embedding tutors in gateway algebra, or a midterm biology study flyer with free coffee..." class="w-full h-12 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none transition resize-none custom-scrollbar font-medium"></textarea>
+                        <button type="button" onclick="smartFillForm()" class="px-4 bg-slate-900 hover:bg-slate-800 text-lime-400 hover:text-lime-300 rounded-xl text-xs font-extrabold shadow-md transition-all flex items-center gap-1.5 shrink-0 border border-slate-800">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            Smart Fill
+                        </button>
+                    </div>
+                </div>
+                <!-- Local Storage Saved Templates Component -->
+                <div class="pt-2 border-t border-slate-100">
+                    <span class="block text-[10px] font-extrabold text-slate-400 uppercase tracking-wider mb-1.5">Saved Custom Form configurations</span>
+                    <div class="flex gap-2 items-center">
+                        <input type="text" id="saveName" placeholder="Name this configuration..." class="bg-white border border-slate-200 rounded-lg px-2.5 py-1 text-[11px] focus:outline-none transition flex-1">
+                        <button type="button" onclick="saveCurrentConfig()" class="px-2.5 py-1 bg-lime-500 hover:bg-lime-600 text-slate-950 font-bold rounded-lg text-[10px] shadow-sm transition">Save Config</button>
+                        <select id="savedConfigsSelect" onchange="loadSavedConfig()" class="bg-white border border-slate-200 rounded-lg px-2 py-1 text-[11px] focus:outline-none max-w-[150px]">
+                            <option value="">-- Load Saved --</option>
+                        </select>
+                        <button type="button" onclick="deleteSavedConfig()" class="text-rose-600 hover:text-rose-800 p-1" title="Delete selected template">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="lg:col-span-7">
@@ -192,6 +208,31 @@
                     <div id="dynamicContainer" class="p-3.5 bg-slate-100 rounded-xl border border-slate-200/60 hidden space-y-3">
                         <span class="text-[10px] font-extrabold text-slate-900 tracking-wider uppercase block border-b border-slate-200 pb-1">Category Specialized Parameters</span>
                         <div id="dynamicContentSpace" class="space-y-3"></div>
+                    </div>
+
+                    <!-- Linguistic Accessibility & Guardrail Control Panel (Added Recommendation) -->
+                    <div class="p-3.5 bg-indigo-50/50 rounded-xl border border-indigo-100 space-y-3">
+                        <span class="text-[10px] font-extrabold text-indigo-900 tracking-wider uppercase block border-b border-indigo-200 pb-1">Linguistic Governor & Guardrails</span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label for="readingLevel" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Reading Complexity</label>
+                                <select id="readingLevel" class="w-full bg-white border border-slate-200 rounded-lg px-2 py-1.5 text-[11px] focus:outline-none transition font-semibold">
+                                    <option value="6th-8th Grade (Plain Language / High Readability)">Plain Language (6th-8th Grade)</option>
+                                    <option value="9th-12th Grade (Standard Academic / Approachable)">Standard High School / College Entry</option>
+                                    <option value="College Graduate+ (Executive / Strategic Persuasive)">Executive / Strategic Leader Level</option>
+                                    <option value="None">No Explicit Linguistic Control</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="cognitiveGuardrail" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Target Guardrail</label>
+                                <select id="cognitiveGuardrail" class="w-full bg-white border border-slate-200 rounded-lg px-2 py-1.5 text-[11px] focus:outline-none transition font-semibold">
+                                    <option value="Strictly prevent answers or cognitive spoon-feeding; enforce Socratic guidance.">Enforce Socratic Scaffolding</option>
+                                    <option value="Avoid academic jargon, dry institutional phrasing, and toxic positivity.">Eradicate Academic Jargon</option>
+                                    <option value="Enforce data-focused, concise metrics; prevent conversational fluff.">Maximize Administrative ROI Context</option>
+                                    <option value="None">None</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Compliance Standards & Branding Controls -->
@@ -396,6 +437,155 @@
         }
     }
 
+    // Local Storage Helpers
+    const STORAGE_KEY = 'learning_commons_architect_configs';
+
+    function getSavedConfigs() {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : {};
+    }
+
+    function updateSavedConfigsDropdown() {
+        const configs = getSavedConfigs();
+        const select = document.getElementById('savedConfigsSelect');
+        select.innerHTML = '<option value="">-- Load Saved --</option>';
+        Object.keys(configs).forEach(name => {
+            const opt = document.createElement('option');
+            opt.value = name;
+            opt.textContent = name;
+            select.appendChild(opt);
+        });
+    }
+
+    function saveCurrentConfig() {
+        const name = document.getElementById('saveName').value.trim();
+        if (!name) {
+            showToast("⚠️ Enter a template name to save!", "slate");
+            return;
+        }
+
+        const cat = document.getElementById('category').value;
+        const config = {
+            category: cat,
+            deliverable: document.getElementById('deliverable').value,
+            outputFormat: document.getElementById('outputFormat').value,
+            audience: document.getElementById('audience').value,
+            platform: document.getElementById('platform').value,
+            outcome: document.getElementById('outcome').value,
+            keyPoints: document.getElementById('keyPoints').value,
+            lookFeel: document.getElementById('lookFeel').value,
+            guidelines: document.getElementById('guidelines').value,
+            brandSelect: document.getElementById('brandSelect').value,
+            wcagToggle: document.getElementById('wcagToggle').checked,
+            readingLevel: document.getElementById('readingLevel').value,
+            cognitiveGuardrail: document.getElementById('cognitiveGuardrail').value,
+            // Capture category-specific field values dynamically
+            dynamicValues: {}
+        };
+
+        if (cat === 'Promotional Flyer') {
+            config.dynamicValues.visualTone = document.getElementById('visualTone')?.value;
+            config.dynamicValues.studentHook = document.getElementById('studentHook')?.value;
+            config.dynamicValues.flyerCta = document.getElementById('flyerCta')?.value;
+        } else if (cat === 'Informational Document') {
+            config.dynamicValues.docDensity = document.getElementById('docDensity')?.value;
+            config.dynamicValues.docObjective = document.getElementById('docObjective')?.value;
+        } else if (cat === 'Email/Memo') {
+            config.dynamicValues.senderTone = document.getElementById('senderTone')?.value;
+            config.dynamicValues.actionUrgency = document.getElementById('actionUrgency')?.value;
+        } else if (cat === 'Tutor Training Materials') {
+            config.dynamicValues.pedagogyModel = document.getElementById('pedagogyModel')?.value;
+            config.dynamicValues.assessmentCheck = document.getElementById('assessmentCheck')?.value;
+            config.dynamicValues.trainingType = document.getElementById('trainingType')?.value;
+        } else if (cat === 'One-Pager') {
+            config.dynamicValues.heroMetric = document.getElementById('heroMetric')?.value;
+            config.dynamicValues.strategicPillar = document.getElementById('strategicPillar')?.value;
+            config.dynamicValues.adminAsk = document.getElementById('adminAsk')?.value;
+        } else if (cat === 'Proposal') {
+            config.dynamicValues.barrierStatement = document.getElementById('barrierStatement')?.value;
+            config.dynamicValues.proposedIntervention = document.getElementById('proposedIntervention')?.value;
+            config.dynamicValues.expectedImpact = document.getElementById('expectedImpact')?.value;
+        }
+
+        const allConfigs = getSavedConfigs();
+        allConfigs[name] = config;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(allConfigs));
+
+        document.getElementById('saveName').value = "";
+        updateSavedConfigsDropdown();
+        showToast(`💾 Saved custom configuration "${name}"`, "lime");
+    }
+
+    function loadSavedConfig() {
+        const select = document.getElementById('savedConfigsSelect');
+        const name = select.value;
+        if (!name) return;
+
+        const allConfigs = getSavedConfigs();
+        const config = allConfigs[name];
+        if (!config) return;
+
+        document.getElementById('category').value = config.category;
+        handleCategoryChange();
+
+        document.getElementById('deliverable').value = config.deliverable;
+        document.getElementById('outputFormat').value = config.outputFormat;
+        document.getElementById('audience').value = config.audience;
+        document.getElementById('platform').value = config.platform;
+        document.getElementById('outcome').value = config.outcome;
+        document.getElementById('keyPoints').value = config.keyPoints;
+        document.getElementById('lookFeel').value = config.lookFeel;
+        document.getElementById('guidelines').value = config.guidelines;
+        document.getElementById('brandSelect').value = config.brandSelect;
+        document.getElementById('wcagToggle').checked = config.wcagToggle;
+        document.getElementById('readingLevel').value = config.readingLevel || "None";
+        document.getElementById('cognitiveGuardrail').value = config.cognitiveGuardrail || "None";
+
+        // Restore dynamic fields safely after rendering timeout
+        setTimeout(() => {
+            if (config.category === 'Promotional Flyer') {
+                if (document.getElementById('visualTone')) document.getElementById('visualTone').value = config.dynamicValues.visualTone || "";
+                if (document.getElementById('studentHook')) document.getElementById('studentHook').value = config.dynamicValues.studentHook || "";
+                if (document.getElementById('flyerCta')) document.getElementById('flyerCta').value = config.dynamicValues.flyerCta || "";
+            } else if (config.category === 'Informational Document') {
+                if (document.getElementById('docDensity')) document.getElementById('docDensity').value = config.dynamicValues.docDensity || "";
+                if (document.getElementById('docObjective')) document.getElementById('docObjective').value = config.dynamicValues.docObjective || "";
+            } else if (config.category === 'Email/Memo') {
+                if (document.getElementById('senderTone')) document.getElementById('senderTone').value = config.dynamicValues.senderTone || "";
+                if (document.getElementById('actionUrgency')) document.getElementById('actionUrgency').value = config.dynamicValues.actionUrgency || "";
+            } else if (config.category === 'Tutor Training Materials') {
+                if (document.getElementById('pedagogyModel')) document.getElementById('pedagogyModel').value = config.dynamicValues.pedagogyModel || "";
+                if (document.getElementById('assessmentCheck')) document.getElementById('assessmentCheck').value = config.dynamicValues.assessmentCheck || "";
+                if (document.getElementById('trainingType')) document.getElementById('trainingType').value = config.dynamicValues.trainingType || "";
+            } else if (config.category === 'One-Pager') {
+                if (document.getElementById('heroMetric')) document.getElementById('heroMetric').value = config.dynamicValues.heroMetric || "";
+                if (document.getElementById('strategicPillar')) document.getElementById('strategicPillar').value = config.dynamicValues.strategicPillar || "";
+                if (document.getElementById('adminAsk')) document.getElementById('adminAsk').value = config.dynamicValues.adminAsk || "";
+            } else if (config.category === 'Proposal') {
+                if (document.getElementById('barrierStatement')) document.getElementById('barrierStatement').value = config.dynamicValues.barrierStatement || "";
+                if (document.getElementById('proposedIntervention')) document.getElementById('proposedIntervention').value = config.dynamicValues.proposedIntervention || "";
+                if (document.getElementById('expectedImpact')) document.getElementById('expectedImpact').value = config.dynamicValues.expectedImpact || "";
+            }
+            showToast(`🚀 Loaded custom configuration "${name}"`, "lime");
+        }, 50);
+    }
+
+    function deleteSavedConfig() {
+        const select = document.getElementById('savedConfigsSelect');
+        const name = select.value;
+        if (!name) {
+            showToast("⚠️ Select a template configuration to delete!", "slate");
+            return;
+        }
+
+        const allConfigs = getSavedConfigs();
+        delete allConfigs[name];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(allConfigs));
+
+        updateSavedConfigsDropdown();
+        showToast(`🗑️ Deleted template configuration "${name}"`, "slate");
+    }
+
     function smartFillForm() {
         const rawIdea = document.getElementById('smartIdea').value.toLowerCase();
         if (!rawIdea.trim()) {
@@ -435,19 +625,21 @@
         const presets = {
             promo_flyer: {
                 category: "Promotional Flyer",
-                deliverable: "",
+                deliverable: "Midterm Success Study Jam Jam Flyer",
                 outputFormat: "Canva file",
-                audience: "",
-                outcome: "",
-                keyPoints: "",
-                lookFeel: "modern and eye-catching",
-                guidelines: "",
+                audience: "Struggling community college gateway-course students",
+                outcome: "Arouse curiosity and persuade students to attend a drop-in study block with free pizza and tutoring, removing stigma around aid.",
+                keyPoints: "1. Held in Learning Commons Library Room 102.\n2. Scheduled for next Wednesday from 2 PM to 8 PM.\n3. Drop-in structure (no appointment needed).\n4. Peer tutors available across math, writing, and STEM gates.",
+                lookFeel: "modern, clean blocks, eye-catching gradients, high-contrast, zero corporate stuffiness",
+                guidelines: "Highly scannable headers. Avoid academic jargon. Target a friendly, high-energy tone.",
                 platform: "Canva AI",
-                brandStyle: "neutral_fun", // maps "none" to Fun & Eye-catching neutral layout style
+                brandStyle: "neutral_fun", // maps to fun & eye-catching student layout style
                 wcag: true,
-                visualTone: "Event-Centric Bold Gradients (High contrast, color blocks, social media-ready)",
-                studentHook: "",
-                flyerCta: ""
+                readingLevel: "6th-8th Grade (Plain Language / High Readability)",
+                cognitiveGuardrail: "Avoid academic jargon, dry institutional phrasing, and toxic positivity.",
+                visualTone: "Non-Stuffy & High Energy (Zero administrative academic jargon, vibrant, approachable)",
+                studentHook: "Free Coffee, Fresh Donuts, and 1-on-1 scaffolded peer assistance",
+                flyerCta: "Scan the quick QR code below or walk directly into Library Room 102"
             },
             info_doc: {
                 category: "Informational Document",
@@ -461,6 +653,8 @@
                 platform: "Claude",
                 brandStyle: "learning_commons",
                 wcag: true,
+                readingLevel: "9th-12th Grade (Standard Academic / Approachable)",
+                cognitiveGuardrail: "Strictly prevent answers or cognitive spoon-feeding; enforce Socratic guidance.",
                 docDensity: "Sparsely Segmented (Quick-read, step blocks, clean bulleted outlines)",
                 docObjective: "Map the student pathway progression milestones and clarify standard structural differences between peer services."
             },
@@ -476,6 +670,8 @@
                 platform: "ChatGPT",
                 brandStyle: "neutral_professional",
                 wcag: true,
+                readingLevel: "College Graduate+ (Executive / Strategic Persuasive)",
+                cognitiveGuardrail: "Enforce data-focused, concise metrics; prevent conversational fluff.",
                 senderTone: "Supportive Collaborative Director (Warm partner, student-success centered)",
                 actionUrgency: "Complete student Early-Alert referrals in the system before midterm grades lock on Friday afternoon"
             },
@@ -491,6 +687,8 @@
                 platform: "Claude",
                 brandStyle: "academic_coaching",
                 wcag: true,
+                readingLevel: "9th-12th Grade (Standard Academic / Approachable)",
+                cognitiveGuardrail: "Strictly prevent answers or cognitive spoon-feeding; enforce Socratic guidance.",
                 pedagogyModel: "Socratic Scaffolding & Guide Philosophy (Never give answers directly)",
                 assessmentCheck: "Two real-world classroom scenario script checks with clear scoring matrices",
                 trainingType: "30-Minute Interactive Training Module / Lesson Plan"
@@ -507,6 +705,8 @@
                 platform: "ChatGPT",
                 brandStyle: "learning_commons",
                 wcag: true,
+                readingLevel: "College Graduate+ (Executive / Strategic Persuasive)",
+                cognitiveGuardrail: "Enforce data-focused, concise metrics; prevent conversational fluff.",
                 heroMetric: "92% gateway progression & semester-to-semester persistence rate for regular SI participants",
                 strategicPillar: "Pathway Progression, Course Completion & Semester-to-Semester Persistence",
                 adminAsk: "Allocate $15,000 to scale embedded Supplemental Instruction within gatekeeper sections"
@@ -523,6 +723,8 @@
                 platform: "ChatGPT",
                 brandStyle: "academic_coaching",
                 wcag: true,
+                readingLevel: "College Graduate+ (Executive / Strategic Persuasive)",
+                cognitiveGuardrail: "Enforce data-focused, concise metrics; prevent conversational fluff.",
                 barrierStatement: "Dual enrollment gateway course failure rates disproportionately impact transitional first-generation community college students.",
                 proposedIntervention: "Launch embedded SI and customized virtual study rooms directly tied to high school partners",
                 expectedImpact: "Achieve a 10% lift in semester-to-semester student retention and rapid progression to degree completion pathways"
@@ -541,6 +743,8 @@
         document.getElementById('audience').value = config.audience;
         document.getElementById('brandSelect').value = config.brandStyle || "neutral_fun";
         document.getElementById('wcagToggle').checked = config.wcag;
+        document.getElementById('readingLevel').value = config.readingLevel || "None";
+        document.getElementById('cognitiveGuardrail').value = config.cognitiveGuardrail || "None";
         
         if (config.platform) {
             document.getElementById('platform').value = config.platform;
@@ -600,6 +804,8 @@
 
         const wcag = document.getElementById('wcagToggle').checked;
         const brandChoice = document.getElementById('brandSelect').value;
+        const rLevel = document.getElementById('readingLevel').value;
+        const guardrail = document.getElementById('cognitiveGuardrail').value;
 
         let dynamicPart = "";
         let diagnostics = `<strong>Target AI:</strong> ${platform} | `;
@@ -654,7 +860,7 @@
 ### STRUCTURAL FOCUS: SCENARIO-DRIVEN SCAFFOLDING
 1. Explicitly incorporate Socratic Scaffolding and Metacognitive modeling. Emphasize that tutors should never hold the pen or do the work.
 2. Align modules to CRLA Standards for Peer Leader Development.
-3. Provide practical, scripted "Wrong vs. Right" dialogue scenarios to simulate tutoring interactions.`;
+3. Provide practical, scripted "Wrong vs. Right" dialogue scenarios to simulate tutoring interactions. For example, show a tutor giving a blunt hint vs prompting with "What do we do first?"`;
             diagnostics += `🎓 Tutor Training Profile Activated`;
         } else if (cat === 'One-Pager') {
             const metric = document.getElementById('heroMetric') ? document.getElementById('heroMetric').value : "";
@@ -684,6 +890,18 @@
 2. Align student interventions with pathway persistence and completion priorities.
 3. Present evidence of cost-efficiency and community-college impact, detailing CRLA and peer SI frameworks.`;
             diagnostics += `💼 Proposal Profile Activated`;
+        }
+
+        // Add Governor controls to diagnostics
+        if (rLevel !== "None") diagnostics += ` | 📈 ${rLevel.split('(')[0]}`;
+        if (guardrail !== "None") diagnostics += ` | 🚫 Guardrails Active`;
+
+        let linguisticBlock = "";
+        if (rLevel !== "None" || guardrail !== "None") {
+            linguisticBlock = `### COGNITIVE & LINGUISTIC GOVERNORS
+* **Reading Complexity Target:** Deliver text strictly structured to meet a ${rLevel} readability constraint.
+* **Linguistic Guardrail:** ${guardrail !== "None" ? guardrail : "Prevent unnecessary conversational filler; prioritize active structural voice."}
+`;
         }
 
         let accessibilityBlock = "";
@@ -746,6 +964,7 @@ ${keys ? keys.split('\n').map(l => l.startsWith('*') || l.startsWith('-') ? l : 
 
 ${dynamicPart}
 
+${linguisticBlock}
 ${accessibilityBlock}
 ${brandBlock}
 ### FORMATTING OUTPUT SPECIFICATIONS
@@ -821,9 +1040,10 @@ Please present the deliverable strictly using professional Markdown. Do not incl
         }, 4000);
     }
 
-    // Initialize category fields on load
+    // Initialize category fields & local templates on load
     window.onload = function() {
         handleCategoryChange();
+        updateSavedConfigsDropdown();
     }
 </script>
 </body>
